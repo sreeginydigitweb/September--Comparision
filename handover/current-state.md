@@ -1,27 +1,57 @@
 # Handover — Current State
 
-Updated 2026-09-28, end of Stage 2.
+Updated 2026-09-28, end of Stage 5 (Skill + Final Validation). **TASK COMPLETE.**
 
 ## Where the project is
 
 | | |
 |---|---|
 | **Stage 1 — Discovery** | COMPLETE |
-| **Stage 2 — Structure & Skill Setup** | COMPLETE (this handover) |
-| **Stage 3 — Analysis** | NOT STARTED — awaiting review |
+| **Stage 2 — Structure & Skill Setup** | COMPLETE |
+| **Stage 3 — Analysis (fast-track)** | COMPLETE — `documentation/analysis-v1-decisions.md` |
+| **Stage 4 — Build** | COMPLETE |
+| **Stage 5 — Skill + Final Validation** | **COMPLETE — PASS.** See `validation/final-validation.md`, `closure/task-complete.md` |
+| **Next** | Business review of the three V1 implementation rules (below). Nothing blocks use of the dashboard |
 
-**Nothing has been built.** No dashboard, no extraction SQL, no application code, no
-dependencies. The project has structure, documented rules, verified source mappings and
-its skills in place.
+## Running the dashboard
+
+Page title: **September Performance Comparison — LY vs TY**. eBay ID and SKU are frozen
+horizontally; Segment badges carry descriptive labels and per-rule tooltips.
+**Download CSV** exports the full current filtered set (not just the rendered rows),
+plus a trailing Currency column so money values are never ambiguous.
+
+
+```
+cd "C:\Users\LED 309\OneDrive\Documents\September -Comparision"
+npm start          # -> http://localhost:3000
+npm run validate   # re-runs the data gates
+```
+
+No dependencies are installed and none are needed — Node built-ins only
+(`node --version` v24.20.0). If port 3000 is busy the server steps up to 3001+ and prints
+the URL it bound to.
+
+**To refresh the data:** re-run the combined extraction (see `sql/` packs and
+`evidence/extract-2026-09-28/counts.md`), then
+`node build/build.mjs <extract.json> && npm run validate`.
+
+## Build result
+
+17,845 rows · A 1,318 · B 93 · C 77 · D 1,305 · Other 15,052.
+All 16 data gates and all browser gates PASS, 0 console errors.
+Final validation also PASS; 2 MAJOR rulebook conflicts were found in the project skill and fixed (docs only, no code change).
+Records: `validation/stage-3-build.md`, `validation/final-validation.md`, `closure/task-complete.md`.
 
 ## What to read first
 
-1. `documentation/project-baseline.md` — scope, LY/TY definition, output table, segment
-   rules as supplied, and the 15 PENDING ANALYSIS items
-2. `data-maps/source-data-map.md` — every field mapped to a verified `ledsone` source
-3. `duplicate-risk-reports/initial-duplicate-risk.md` — what to reuse, what is excluded
-4. `.agents/skills/september-yoy-segmentation/SKILL.md` — the project rulebook and pipeline
-5. `validation/stage-2-structure-skill-setup.md` — what was checked and how
+1. `documentation/analysis-v1-decisions.md` — **the authority.** Every locked metric
+   formula, the row grain, the Ad Spend deviation (§9) and the segmentation rules
+2. `closure/task-complete.md` — what was delivered, how to run it, the limitations
+3. `documentation/project-baseline.md` — original scope and the segment rules as supplied
+   (its PENDING ANALYSIS list is now resolved by the analysis in item 1)
+4. `data-maps/source-data-map.md` — every field mapped to a verified `ledsone` source
+5. `.agents/skills/september-yoy-segmentation/SKILL.md` — the project rulebook and pipeline
+6. `validation/final-validation.md` — what was checked at close, and how
 
 ## Decisions already taken — do not reopen
 
@@ -45,8 +75,12 @@ its skills in place.
 
 ## Traps that will otherwise be rediscovered the hard way
 
-1. **Ad Spend is not in `listing_performance`.** Use `accounting.ebay_order_expenses`,
-   `AD_FEE + PREMIUM_AD_FEES`. Adding the performance-table fees on top double-counts.
+1. **Ad Spend — two sources, and V1 does not use the one the rule names.** The verified
+   P&L rule is `accounting.ebay_order_expenses` (`AD_FEE + PREMIUM_AD_FEES`), and the
+   performance-table fees must never be added on top of it. **V1 uses
+   `listing_performance.ad_fees_listing_currency` alone**, because the billing source holds
+   only ~3 days of TY September (max 2026-09-03). One source only, so no double-count.
+   See `documentation/analysis-v1-decisions.md` §9 — revisit when settlement catches up.
 2. **`all_list = 1`** on every `listings.ebay_listings` read, or parent container rows
    inflate and duplicate the result.
 3. **`attributed_sales` and `sold` are counts, not money.**
@@ -58,18 +92,20 @@ its skills in place.
 7. **The three TY sources end on different days** — traffic 2026-09-26, ads and orders
    2026-09-28.
 
-## Open questions for the business (blocking Analysis, not this stage)
+## Open questions for the business (V1 shipped with documented interim answers)
 
-The full list is in `documentation/project-baseline.md`. The four that block
-segmentation outright:
+All of these are **implemented and working** under V1 operational definitions. None blocks
+use of the dashboard; each is a one-line change if the business decides differently.
 
-1. Segment B — what "recent sales are improving" measurably means
-2. Segment D — what "approximately 0" tolerates
-3. Segment precedence, and whether a row carries one label or several
-4. The revenue definition everything else depends on
+1. Segment B — "recent sales are improving" → V1: latest 7 TY days > preceding 7 TY days
+2. Segment D — "approximately 0" → V1: TY Sales exactly 0 (deliberately conservative)
+3. Segment precedence → V1: D → C → B → A → Other, one label per row
+4. Revenue definition → **resolved by an authoritative rule**, not a V1 guess:
+   `item_price × item_quantity` (`business/queries/ph-sales-by-channel.md`)
 
 ## Next action
 
-Begin **Analysis**: put the PENDING ANALYSIS items to the business, starting with the
-four above. Do not write extraction SQL until the revenue definition and row grain are
-settled — every query depends on both.
+Business review of the V1 rules that are implementation choices, not owner decisions:
+segment precedence D->C->B->A, Segment D requiring TY Sales exactly 0, the Segment B
+7-day recovery window, and the Ad Spend source deviation (section 9 of the analysis).
+Each is documented and each is a one-line change once confirmed.

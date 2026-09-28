@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>September Performance Comparison — LY vs TY</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --panel:#fff; --ink:#15181d; --muted:#666e7a; --line:#dfe3e8;
+    --accent:#1f5fd6; --warn-bg:#fff6e0; --warn-line:#e8b53a; --warn-ink:#6b4c00;
+    --neg:#b3261e; --pos:#1b7a3d;
+    --a:#e6f4ea; --a-ink:#1b7a3d; --b:#e8f0fe; --b-ink:#1f5fd6;
+    --c:#fdeeda; --c-ink:#9a5b00; --d:#fce9e7; --d-ink:#b3261e;
+    --o:#eef0f3; --o-ink:#5b6371;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+  header{background:var(--panel);border-bottom:1px solid var(--line);padding:14px 18px 12px}
+  h1{margin:0 0 2px;font-size:17px;font-weight:650;letter-spacing:-.2px}
+  .sub{color:var(--muted);font-size:12px}
+  .notice{margin:10px 0 0;background:var(--warn-bg);border:1px solid var(--warn-line);
+          border-left-width:4px;border-radius:4px;padding:8px 11px;color:var(--warn-ink);font-size:12px}
+  .notice b{font-weight:650}
+  .cards{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:5px;
+        padding:7px 12px;min-width:104px}
+  .card .k{font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+  .card .v{font-size:17px;font-weight:650;margin-top:1px;font-variant-numeric:tabular-nums}
+  .cur{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .cur .card{min-width:160px}
+  .cur .v{font-size:13px;font-weight:600}
+  .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+            padding:10px 18px;background:var(--panel);border-bottom:1px solid var(--line);
+            position:sticky;top:0;z-index:20}
+  select,input[type=search]{font:inherit;padding:5px 8px;border:1px solid var(--line);
+            border-radius:4px;background:#fff;color:var(--ink)}
+  input[type=search]{min-width:250px}
+  button{font:inherit;padding:5px 11px;border:1px solid var(--line);border-radius:4px;
+         background:#fff;cursor:pointer}
+  button:hover{background:#f0f2f5}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+  button.primary:hover{background:#1a4fb4;border-color:#1a4fb4}
+  button.primary:disabled{background:#aab4c4;border-color:#aab4c4;cursor:not-allowed}
+  .count{margin-left:auto;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
+  .wrap{overflow:auto;max-height:calc(100vh - 150px);margin:0;background:var(--panel);
+        scrollbar-color:#9aa3ae #e9ecf1}
+  /* prominent, easy-to-grab horizontal scrollbar */
+  .wrap::-webkit-scrollbar{height:15px;width:12px}
+  .wrap::-webkit-scrollbar-track{background:#e9ecf1;border-top:1px solid var(--line)}
+  .wrap::-webkit-scrollbar-thumb{background:#9aa3ae;border-radius:8px;border:3px solid #e9ecf1}
+  .wrap::-webkit-scrollbar-thumb:hover{background:#7a838f}
+  table{border-collapse:separate;border-spacing:0;width:max-content;min-width:100%}
+  th,td{padding:5px 9px;border-bottom:1px solid var(--line);white-space:nowrap}
+  thead th{position:sticky;top:0;background:#eef1f5;z-index:10;text-align:left;
+           font-size:11px;font-weight:650;text-transform:uppercase;letter-spacing:.3px;
+           cursor:pointer;user-select:none;border-bottom:1px solid #cdd3da}
+  thead th:hover{background:#e4e9f0}
+  thead th.num{text-align:right}
+  td.num{text-align:right;font-variant-numeric:tabular-nums}
+  tbody tr:nth-child(even){background:#fafbfc}
+  tbody tr:hover{background:#eef4ff}
+  td.id{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
+  td.sku{overflow:hidden;text-overflow:ellipsis}
+
+  /* --- frozen identity columns: eBay ID + SKU stay put when scrolling right --- */
+  th:nth-child(1),td:nth-child(1){position:sticky;left:0;width:118px;min-width:118px;max-width:118px}
+  th:nth-child(2),td:nth-child(2){position:sticky;left:118px;width:220px;min-width:220px;max-width:220px;
+           border-right:1px solid #cdd3da}
+  tbody td:nth-child(1),tbody td:nth-child(2){z-index:4;background:var(--panel)}
+  tbody tr:nth-child(even) td:nth-child(1),
+  tbody tr:nth-child(even) td:nth-child(2){background:#fafbfc}
+  tbody tr:hover td:nth-child(1),
+  tbody tr:hover td:nth-child(2){background:#eef4ff}
+  thead th:nth-child(1),thead th:nth-child(2){z-index:14}
+  /* shadow appears only once the table is actually scrolled right */
+  .wrap.scrolled td:nth-child(2),.wrap.scrolled th:nth-child(2){box-shadow:6px 0 6px -4px rgba(0,0,0,.16)}
+
+  .neg{color:var(--neg)} .pos{color:var(--pos)}
+  .na{color:#aab1bb}
+  .chip{display:inline-block;min-width:60px;text-align:center;padding:2px 9px;border-radius:10px;
+        font-size:11px;font-weight:700;letter-spacing:.3px;border:1px solid transparent}
+  .s-A{background:var(--a);color:var(--a-ink);border-color:#a8d8ba}
+  .s-B{background:var(--b);color:var(--b-ink);border-color:#aac4f2}
+  .s-C{background:var(--c);color:var(--c-ink);border-color:#eec48c}
+  .s-D{background:var(--d);color:var(--d-ink);border-color:#f0b3ad}
+  .s-Other{background:var(--o);color:var(--o-ink);border-color:#d3d8e0}
+  td:last-child{text-align:center}
+  .more{padding:11px 18px;text-align:center}
+  footer{padding:12px 18px 26px;color:var(--muted);font-size:11.5px;line-height:1.7}
+  footer b{color:var(--ink);font-weight:600}
+  .arrow{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>September Performance Comparison — LY vs TY</h1>
+  <div class="sub" id="sub">Loading…</div>
+  <div class="notice" id="notice"></div>
+  <div class="cards" id="cards"></div>
+  <div class="cur" id="curcards"></div>
+</header>
+
+<div class="controls">
+  <select id="fAccount"><option value="">All accounts</option></select>
+  <select id="fSegment">
+    <option value="">All segments</option>
+    <option value="A">A — YoY Winner</option>
+    <option value="B">B — YoY Recovery</option>
+    <option value="C">C — Lost Ad Sales</option>
+    <option value="D">D — Lost Performer</option>
+    <option value="Other">Other</option>
+  </select>
+  <select id="fCurrency"><option value="">All currencies</option></select>
+  <input type="search" id="q" placeholder="Search eBay ID, SKU or title…">
+  <button id="reset">Clear filters</button>
+  <button id="download" class="primary">Download CSV</button>
+  <span class="count" id="count">—</span>
+</div>
+
+<div class="wrap">
+  <table>
+    <thead><tr id="head"></tr></thead>
+    <tbody id="body"></tbody>
+  </table>
+</div>
+<div class="more"><button id="more" hidden>Show more</button></div>
+
+<footer id="foot"></footer>
+
+<script>
+const COLS = [
+  {k:'ebay_id',           t:'eBay ID',        f:'id'},
+  {k:'sku',               t:'SKU',            f:'sku'},
+  {k:'ly_sales',          t:'LY Sales',       f:'money'},
+  {k:'ty_sales',          t:'TY Sales',       f:'money'},
+  {k:'yoy_pct',           t:'YoY %',          f:'yoy'},
+  {k:'ly_ad_sales',       t:'LY Ad Sales',    f:'money'},
+  {k:'ty_ad_sales',       t:'TY Ad Sales',    f:'money'},
+  {k:'ly_views',          t:'LY Views',       f:'int'},
+  {k:'ty_views',          t:'TY Views',       f:'int'},
+  {k:'ly_orders',         t:'LY Orders',      f:'int'},
+  {k:'ty_orders',         t:'TY Orders',      f:'int'},
+  {k:'ly_conversion_pct', t:'LY Conv %',      f:'pct'},
+  {k:'ty_conversion_pct', t:'TY Conv %',      f:'pct'},
+  {k:'ly_price',          t:'LY Price',       f:'money'},
+  {k:'ty_price',          t:'TY Price',       f:'money'},
+  {k:'ad_impressions',    t:'Ad Impressions', f:'int'},
+  {k:'ad_clicks',         t:'Ad Clicks',      f:'int'},
+  {k:'ad_spend',          t:'Ad Spend',       f:'money'},
+  {k:'ad_sales',          t:'Ad Sales',       f:'money'},
+  {k:'roas',              t:'ROAS / ACoS',    f:'roas'},
+  {k:'segment',           t:'Segment',        f:'seg'},
+];
+// Display labels only — segmentation logic and stored values are unchanged.
+const SEG_LABEL = {A:'A · Winner', B:'B · Recovery', C:'C · Lost Ads', D:'D · Lost Perf', Other:'Other'};
+const SEG_TITLE = {A:'A — YoY Winner: TY Sales > LY Sales',
+                   B:'B — YoY Recovery: TY < LY but latest 7 TY days > preceding 7',
+                   C:'C — Lost Ad Sales: LY Ad Sales > 0 and TY Ad Sales = 0',
+                   D:'D — Lost Performer: LY Sales > 0 and TY Sales = 0',
+                   Other:'Other — no A/B/C/D rule matched'};
+const SYM = {GBP:'£', EUR:'€', USD:'$'};
+const NA  = '<span class="na">N/A</span>';
+const nf  = new Intl.NumberFormat('en-GB');
+const mf  = new Intl.NumberFormat('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2});
+
+let DATA = [], META = null, view = [], shown = 0;
+const PAGE = 400;
+let sortKey = 'ty_sales', sortDir = -1;
+
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function cell(r, c){
+  const v = r[c.k];
+  switch(c.f){
+    case 'id':    return `<td class="id">${esc(v)}</td>`;
+    case 'sku':   return `<td class="sku" title="${esc(r.title)}">${esc(v)}</td>`;
+    case 'int':   return `<td class="num">${v ? nf.format(v) : '<span class="na">0</span>'}</td>`;
+    case 'money': return `<td class="num">${v === null ? NA : SYM[r.currency] + mf.format(v)}</td>`;
+    case 'pct':   return `<td class="num">${v === null ? NA : v.toFixed(2) + '%'}</td>`;
+    case 'yoy': {
+      if (v === null) return `<td class="num na">${r.yoy_label}</td>`;
+      const cls = v < 0 ? 'neg' : v > 0 ? 'pos' : '';
+      return `<td class="num ${cls}">${v > 0 ? '+' : ''}${v.toFixed(1)}%</td>`;
+    }
+    case 'roas': {
+      if (r.roas === null && r.acos === null) return `<td class="num">${NA}</td>`;
+      const a = r.roas === null ? 'N/A' : r.roas.toFixed(2);
+      const b = r.acos === null ? 'N/A' : r.acos.toFixed(1) + '%';
+      return `<td class="num">${a} &middot; ${b}</td>`;
+    }
+    case 'seg':   return `<td><span class="chip s-${v}" title="${SEG_TITLE[v]}">${SEG_LABEL[v]}</span></td>`;
+  }
+}
+
+function apply(){
+  const acc = fAccount.value, seg = fSegment.value, cur = fCurrency.value;
+  const q = document.getElementById('q').value.trim().toLowerCase();
+  view = DATA.filter(r =>
+    (!acc || r.account === acc) &&
+    (!seg || r.segment === seg) &&
+    (!cur || r.currency === cur) &&
+    (!q   || r.ebay_id.toLowerCase().includes(q) || r.sku.toLowerCase().includes(q)
+          || (r.title || '').toLowerCase().includes(q)));
+
+  view.sort((a, b) => {
+    let x = a[sortKey], y = b[sortKey];
+    if (sortKey === 'yoy_pct'){ x = x === null ? -Infinity : x; y = y === null ? -Infinity : y; }
+    if (x === null) x = -Infinity; if (y === null) y = -Infinity;
+    if (typeof x === 'string') return x.localeCompare(y) * sortDir;
+    return (x - y) * sortDir;
+  });
+
+  shown = 0;
+  document.getElementById('body').innerHTML = '';
+  render();
+}
+
+function render(){
+  const slice = view.slice(shown, shown + PAGE);
+  document.getElementById('body').insertAdjacentHTML('beforeend',
+    slice.map(r => '<tr>' + COLS.map(c => cell(r, c)).join('') + '</tr>').join(''));
+  shown += slice.length;
+  document.getElementById('count').textContent =
+    `Showing ${nf.format(Math.min(shown, view.length))} of ${nf.format(view.length)} listings` +
+    (view.length !== DATA.length ? ` (filtered from ${nf.format(DATA.length)})` : '');
+  document.getElementById('more').hidden = shown >= view.length;
+
+  // Export button always reports the FULL filtered set, not the rendered page.
+  const dl = document.getElementById('download');
+  dl.textContent = `Download CSV (${nf.format(view.length)})`;
+  dl.disabled = view.length === 0;
+}
+
+function head(){
+  document.getElementById('head').innerHTML = COLS.map(c =>
+    `<th data-k="${c.k}" class="${c.f === 'id' || c.f === 'sku' || c.f === 'seg' ? '' : 'num'}">${c.t}` +
+    `<span class="arrow">${c.k === sortKey ? (sortDir < 0 ? ' ▼' : ' ▲') : ''}</span></th>`).join('');
+  document.querySelectorAll('#head th').forEach(th => th.onclick = () => {
+    const k = th.dataset.k;
+    if (k === sortKey) sortDir = -sortDir;
+    else { sortKey = k; sortDir = (k === 'ebay_id' || k === 'sku' || k === 'segment') ? 1 : -1; }
+    head(); apply();
+  });
+}
+
+fetch('data/september-comparison.json').then(r => r.json()).then(d => {
+  DATA = d.rows; META = d.meta;
+
+  document.getElementById('sub').textContent =
+    `LY ${META.ly_window}  vs  TY ${META.ty_window}  ·  ${nf.format(META.row_count)} listings  ·  ` +
+    `generated ${new Date(META.generated_at).toLocaleString('en-GB')}`;
+
+  const m = META.source_max_dates;
+  document.getElementById('notice').innerHTML =
+    `<b>TY September data is partial / current available data.</b> ` +
+    `Sales &amp; ads available through <b>${m.sales}</b>; traffic through <b>${m.traffic}</b>. ` +
+    `TY figures and YoY % are understated against a full LY September — partly for calendar reasons, not performance.`;
+
+  const s = META.segments;
+  document.getElementById('cards').innerHTML = [
+    ['Total Listings', META.row_count], ['A — YoY Winners', s.A || 0],
+    ['B — YoY Recovery', s.B || 0], ['C — Lost Ad Sales', s.C || 0],
+    ['D — Lost Performers', s.D || 0], ['Other', s.Other || 0],
+  ].map(([k, v]) => `<div class="card"><div class="k">${k}</div><div class="v">${nf.format(v)}</div></div>`).join('');
+
+  document.getElementById('curcards').innerHTML = META.currencies.map(c =>
+    `<div class="card"><div class="k">${c.currency} — ${nf.format(c.rows)} rows</div>` +
+    `<div class="v">LY ${SYM[c.currency]}${mf.format(c.ly_sales)} &rarr; TY ${SYM[c.currency]}${mf.format(c.ty_sales)}</div></div>`).join('');
+
+  fAccount.innerHTML += META.accounts.map(a => `<option>${esc(a)}</option>`).join('');
+  fCurrency.innerHTML += META.currencies.map(c => `<option>${c.currency}</option>`).join('');
+
+  document.getElementById('foot').innerHTML = `
+    <b>Notes (V1).</b>
+    <b>Price</b> is realised Average Selling Price (Sales &divide; Units) for both LY and TY — no historical list-price source exists; at listing level this averages across variations.
+    <b>Orders</b> are units sold. <b>Conversion</b> = Orders &divide; Views (organic; eBay views only, PPC conversion not mixed in).
+    <b>Ad Spend</b> comes from eBay Promoted Listings reported ad fees (<i>${esc(META.ad_spend_source)}</i>) — the billing record holds only ~3 days of TY September, so it is not used; one source only, no double-count.
+    <b>Ad Impressions, Clicks, Spend and Ad Sales</b> are TY figures. Ad sales under-attribute Promoted Advanced by ~25% (known limit of the only per-listing source).
+    <b>Segment precedence D &rarr; C &rarr; B &rarr; A &rarr; Other is a V1 implementation rule pending business confirmation</b>; D requires TY Sales exactly 0; B requires the latest 7 TY days to exceed the preceding 7.
+    <b>Currency</b> — GBP, EUR and USD are never summed together; each row keeps its marketplace currency.
+    Listing Analysis and Demand Analysis are follow-up diagnostics: no verified LY-vs-TY source.`;
+
+  head(); apply();
+});
+
+/* ---------- CSV export ----------
+   Exports `view` — the FULL current filtered + sorted set, not the rendered page.
+   Reads the already-loaded dataset only: no query, no API, no regeneration. */
+
+// The 21 required columns, in the required order. `Currency` is appended after them so
+// monetary values are never ambiguous (this project never blends GBP/EUR/USD) while the
+// required 21 keep their exact positions.
+const CSV_COLS = [
+  ['eBay ID',          r => r.ebay_id],
+  ['SKU',              r => r.sku],
+  ['LY Sales',         r => money(r.ly_sales)],
+  ['TY Sales',         r => money(r.ty_sales)],
+  ['YoY %',            r => r.yoy_pct === null ? r.yoy_label : r.yoy_pct.toFixed(1)],
+  ['LY Ad Sales',      r => money(r.ly_ad_sales)],
+  ['TY Ad Sales',      r => money(r.ty_ad_sales)],
+  ['LY Views',         r => r.ly_views],
+  ['TY Views',         r => r.ty_views],
+  ['LY Orders',        r => r.ly_orders],
+  ['TY Orders',        r => r.ty_orders],
+  ['LY Conversion %',  r => r.ly_conversion_pct === null ? 'N/A' : r.ly_conversion_pct.toFixed(2)],
+  ['TY Conversion %',  r => r.ty_conversion_pct === null ? 'N/A' : r.ty_conversion_pct.toFixed(2)],
+  ['LY Price',         r => money(r.ly_price)],
+  ['TY Price',         r => money(r.ty_price)],
+  ['Ad Impressions',   r => r.ad_impressions],
+  ['Ad Clicks',        r => r.ad_clicks],
+  ['Ad Spend',         r => money(r.ad_spend)],
+  ['Ad Sales',         r => money(r.ad_sales)],
+  ['ROAS / ACoS',      r => (r.roas === null && r.acos === null) ? 'N/A'
+                          : `${r.roas === null ? 'N/A' : r.roas.toFixed(2)} / ${r.acos === null ? 'N/A' : r.acos.toFixed(2) + '%'}`],
+  ['Segment',          r => r.segment],
+  ['Currency',         r => r.currency],
+];
+
+// Plain numbers (no symbol, no separators) so a spreadsheet can total them; null -> N/A,
+// matching how the dashboard shows an unavailable value.
+function money(v){ return v === null || v === undefined ? 'N/A' : v.toFixed(2); }
+
+function csvCell(v){
+  if (v === null || v === undefined) return 'N/A';
+  if (typeof v === 'number') return Number.isFinite(v) ? String(v) : 'N/A';
+  const s = String(v);
+  return /[",\r\n]|^\s|\s$/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+}
+
+function buildCsv(rows){
+  const out = [CSV_COLS.map(c => csvCell(c[0])).join(',')];
+  for (const r of rows) out.push(CSV_COLS.map(c => csvCell(c[1](r))).join(','));
+  return out.join('\r\n');
+}
+
+function csvFilename(){
+  const bits = ['September-Comparison-2026'];
+  const acc = fAccount.value, seg = fSegment.value, cur = fCurrency.value;
+  if (acc) bits.push(acc.replace(/[^A-Za-z0-9_-]+/g, '-').slice(0, 24));
+  if (seg) bits.push('Segment-' + seg);
+  if (cur) bits.push(cur);
+  if (document.getElementById('q').value.trim()) bits.push('filtered');
+  return bits.join('_') + '.csv';
+}
+
+function downloadCsv(){
+  // BOM so Excel reads UTF-8 (£, €, accented product text) without mangling columns.
+  const blob = new Blob(['﻿' + buildCsv(view)], {type:'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = csvFilename();
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+// Drop-shadow on the frozen columns only once the table is scrolled right.
+const wrap = document.querySelector('.wrap');
+wrap.addEventListener('scroll', () => wrap.classList.toggle('scrolled', wrap.scrollLeft > 0), {passive:true});
+
+['fAccount','fSegment','fCurrency'].forEach(id => document.getElementById(id).onchange = apply);
+document.getElementById('q').oninput = apply;
+document.getElementById('more').onclick = render;
+document.getElementById('download').onclick = downloadCsv;
+document.getElementById('reset').onclick = () => {
+  fAccount.value = ''; fSegment.value = ''; fCurrency.value = '';
+  document.getElementById('q').value = '';
+  sortKey = 'ty_sales'; sortDir = -1; head(); apply();
+};
+</script>
+</body>
+</html>

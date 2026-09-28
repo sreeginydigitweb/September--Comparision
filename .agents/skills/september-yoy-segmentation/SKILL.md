@@ -28,26 +28,31 @@ are right and this file has a correction waiting.
 
 ---
 
-## Stop here if a rule below is marked PENDING ANALYSIS
+## The rules are settled for V1 — do not re-invent them, and do not stop on them
 
-Four things this skill needs are **not yet defined by the business**, and this skill's
-most important job right now is to refuse to invent them.
+Everything this skill needs is now defined. **The authority is
+`documentation/analysis-v1-decisions.md`** — read it, and do not re-derive a definition
+that already sits there.
 
-| Pending | What is missing |
+| Rule | V1 status |
 |---|---|
-| **Segment B threshold** | "recent sales are improving" — no window, no baseline, no minimum uplift, no revenue-vs-units basis |
-| **Segment D threshold** | "TY Sales approximately 0" — no tolerance: absolute floor, percentage of LY, or literal zero |
-| **Segment precedence** | The rules overlap. Undefined: one label or several per row, and the order they are applied in |
-| **Nine metric definitions** | Revenue, Views, Orders, Conversion, Price, ad currency basis, ACoS, output "Ad Sales", row grain — see `documentation/project-baseline.md` |
+| **Revenue** | **Authoritative** — `item_price × item_quantity` (`business/queries/ph-sales-by-channel.md`). Not `real_*` |
+| **Row grain** | Account + eBay item_id + marketplace. SKU is a display attribute — 92% of item_ids carry >1 SKU |
+| **Views / Orders / Conversion / Price** | `ebay_views`; units sold; Orders ÷ Views; realised ASP = Sales ÷ Units |
+| **Ad currency / ACoS / output Ad Sales** | listing-site currency, never blended; ACoS computed from cols 18–19; col 19 = TY Ad Sales |
+| **Segment B** | latest 7 available TY days > preceding 7 |
+| **Segment D** | TY Sales exactly 0 (conservative; no monetary tolerance invented) |
+| **Segment precedence** | D → C → B → A → Other, one label per row |
 
-**Do not pick a plausible number. Do not pick a "sensible default". Do not infer one
-from the data's distribution.** If a run reaches a point where one of these is
-required, stop and report which one, rather than proceeding on a guess. A threshold
-invented here silently becomes the business rule, and nobody will know it was invented.
+**Three of these are V1 implementation choices, not business-owner rules** — Segment B's
+window, Segment D's exact zero, and the precedence order. They are labelled as such in
+the analysis, on the dashboard footer, and in the handover. **Do not present them as
+owner-supplied**, and do not quietly change them either: a change is a business decision,
+recorded in the analysis first.
 
-Segment **A** (`TY Sales > LY Sales`) and Segment **C**
-(`LY Ad Sales > 0 AND TY Ad Sales = 0`) are fully defined and may be computed once the
-underlying metric definitions are settled.
+**What still must never be invented:** a threshold or definition that is *not* in the
+analysis. If a run needs one, stop and report which — do not pick a plausible number, a
+"sensible default", or one inferred from the data's distribution.
 
 ---
 
@@ -112,7 +117,7 @@ sequences the others, and that gap is this skill's reason to exist.
 | **LY** | September 2025, full month |
 | **TY** | September 2026, partial — the data that exists at run time |
 | **Channel** | eBay only (`order_management.source.source_name = 'EBAY'`) |
-| **Grain** | PENDING ANALYSIS — per `item_id`, per SKU, or per item_id x account x marketplace |
+| **Grain** | Account (`sub_source`) + eBay `item_id` + marketplace. SKU is a display attribute |
 
 **YoY %** is derived from LY Sales and TY Sales once the revenue definition is settled.
 Behaviour where `LY Sales = 0` is undefined and is part of the pending set — do not
@@ -135,8 +140,14 @@ Ad Impressions, Ad Clicks, Ad Spend, Ad Sales, ROAS / ACoS, Segment.
 
 These are verified and imported; `data-maps/source-data-map.md` holds the full set.
 
-- Ad **cost** comes from `accounting.ebay_order_expenses` as `AD_FEE + PREMIUM_AD_FEES`.
-  Do **not** also add `listing_performance.ad_fees_*` — that double-counts.
+- Ad **cost**: the P&L rule is `accounting.ebay_order_expenses` as
+  `AD_FEE + PREMIUM_AD_FEES`, and it must **never** be added to `listing_performance.ad_fees_*`
+  — that double-counts. **V1 as shipped does not use it.** The billing record holds only
+  ~3 days of TY September (max 2026-09-03) against a full LY month, so V1 takes Ad Spend
+  from `listing_performance.ad_fees_listing_currency` **alone** — one source, no
+  double-count, and spend and ad sales share one attribution basis so ROAS/ACoS stay
+  coherent. See `documentation/analysis-v1-decisions.md` §9. Revisit when settlement
+  catches up; the P&L rule remains correct for a P&L.
 - `listing_performance` **under-attributes Promoted Advanced by ~25%**, and is still the
   only per-listing source. Never add or compare it against `campaign_performance`.
 - `attributed_sales` and `sold` are **counts, not money**.
@@ -184,6 +195,15 @@ When this file proves wrong — a source moved, a rule was decided, a trap was f
 correct this file in the same run, and say what changed. A rulebook that drifts from
 the project is worse than no rulebook, because it is trusted.
 
-**Standing entry:** the four PENDING ANALYSIS blocks above are the live ones. When
-Analysis settles a threshold, record it in `documentation/project-baseline.md` first,
-then update this file to cite it. The decision lives there; this file points at it.
+**Applied 2026-09-28 (V1 build):** this file previously told a run to *stop* on the
+Segment B/D thresholds, the precedence and nine metric definitions, and named
+`ebay_order_expenses` as the Ad Spend source. All of those were settled by the fast-track
+Analysis and the V1 build shipped against them, so both sections were corrected here —
+a run following the old text would have halted on a resolved question, or changed the
+Ad Spend source out from under a validated dashboard.
+
+**Standing entry:** three V1 rules are implementation choices awaiting business
+confirmation — Segment B's 7-day window, Segment D's exact zero, and the D→C→B→A
+precedence. When the business settles one, record it in
+`documentation/analysis-v1-decisions.md` first, then update this file to cite it. The
+decision lives there; this file points at it.

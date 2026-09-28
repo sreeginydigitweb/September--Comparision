@@ -1,0 +1,11 @@
+{
+  "name": "september-comparison",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "September LY vs TY eBay comparison dashboard (V1)",
+  "scripts": {
+    "start": "node build/server.mjs",
+    "validate": "node build/validate.mjs"
+  }
+}

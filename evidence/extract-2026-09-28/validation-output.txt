@@ -1,0 +1,18 @@
+PASS  1  dataset has rows — 17845 rows
+PASS  2  key unique (account+item+marketplace) — 17845 keys / 17845 rows
+PASS  3  LY/TY sales reconcile — GBP LY 92129.93 TY 74369.69 | EUR LY 43759.15 TY 24090.12 | USD LY 1985.2 TY 2576.02
+PASS  4  ad spend matches single source — GBP 10165.5 | EUR 4361.46 | USD 206.31
+PASS  5  no cross-currency totals — 3 currency buckets
+PASS  6  exactly one valid segment per row
+PASS  7  segment counts sum to rows — 17845 = 17845
+PASS  8  every D: LY>0 and TY=0 — 1305 rows
+PASS  9  every C: LY ad sales>0, TY ad sales=0, not D — 77 rows
+PASS  10 every B: TY<LY and recovering, not D/C — 93 rows
+PASS  11 every A: TY>LY, not D/C/B — 1318 rows
+PASS  12 no NaN — clean
+PASS  13 no Infinity — clean
+PASS  14 no broken numerics — all numeric fields number|null
+PASS  20 partial-TY metadata present — traffic 2026-09-26, sales/ads 2026-09-28
+PASS     coverage: LY and TY both non-empty
+
+ALL GATES PASSED
