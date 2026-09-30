@@ -1,0 +1,521 @@
+Account,eBay ID,Marketplace,Metric,Raw LEDsone Value,Dashboard Value,Difference,Result
+Ledsone,163037863571,GB,LY Sales,25.38,25.38,0,OK
+Ledsone,163037863571,GB,TY Sales,0,0,0,OK
+Ledsone,163037863571,GB,YoY %,-100,-100,0,OK
+Ledsone,163037863571,GB,YoY label,null,null,,OK
+Ledsone,163037863571,GB,LY Ad Sales,25.38,25.38,0,OK
+Ledsone,163037863571,GB,TY Ad Sales,0,0,0,OK
+Ledsone,163037863571,GB,LY Views,32,32,0,OK
+Ledsone,163037863571,GB,TY Views,22,22,0,OK
+Ledsone,163037863571,GB,LY Orders,1,1,0,OK
+Ledsone,163037863571,GB,TY Orders,0,0,0,OK
+Ledsone,163037863571,GB,LY Conversion %,6.25,6.25,0,OK
+Ledsone,163037863571,GB,TY Conversion %,0,0,0,OK
+Ledsone,163037863571,GB,LY Price,12.69,12.69,0,OK
+Ledsone,163037863571,GB,TY Price,null,null,0,OK
+Ledsone,163037863571,GB,Ad Impressions,7922,7922,0,OK
+Ledsone,163037863571,GB,Ad Clicks,7,7,0,OK
+Ledsone,163037863571,GB,Ad Spend,0,0,0,OK
+Ledsone,163037863571,GB,Ad Sales,0,0,0,OK
+Ledsone,163037863571,GB,ROAS,null,null,0,OK
+Ledsone,163037863571,GB,ACOS,null,null,0,OK
+Ledsone,163037863571,GB,LY Ad-Generated,25.38,25.38,0,OK
+Ledsone,163037863571,GB,LY Units,2,2,0,OK
+Ledsone,163037863571,GB,TY Units,0,0,0,OK
+Ledsone,163037863571,GB,LY Order Lines,1,1,0,OK
+Ledsone,163037863571,GB,TY Order Lines,0,0,0,OK
+Ledsone,163037863571,GB,Segment,D,D,0,OK
+Ledsone,163225404503,GB,LY Sales,0,0,0,OK
+Ledsone,163225404503,GB,TY Sales,15.89,15.89,0,OK
+Ledsone,163225404503,GB,YoY %,null,null,0,OK
+Ledsone,163225404503,GB,YoY label,NEW,NEW,,OK
+Ledsone,163225404503,GB,LY Ad Sales,0,0,0,OK
+Ledsone,163225404503,GB,TY Ad Sales,15.89,15.89,0,OK
+Ledsone,163225404503,GB,LY Views,21,21,0,OK
+Ledsone,163225404503,GB,TY Views,15,15,0,OK
+Ledsone,163225404503,GB,LY Orders,0,0,0,OK
+Ledsone,163225404503,GB,TY Orders,1,1,0,OK
+Ledsone,163225404503,GB,LY Conversion %,0,0,0,OK
+Ledsone,163225404503,GB,TY Conversion %,6.67,6.67,0,OK
+Ledsone,163225404503,GB,LY Price,null,null,0,OK
+Ledsone,163225404503,GB,TY Price,15.89,15.89,0,OK
+Ledsone,163225404503,GB,Ad Impressions,3508,3508,0,OK
+Ledsone,163225404503,GB,Ad Clicks,7,7,0,OK
+Ledsone,163225404503,GB,Ad Spend,1.43,1.43,0,OK
+Ledsone,163225404503,GB,Ad Sales,15.89,15.89,0,OK
+Ledsone,163225404503,GB,ROAS,11.11,11.11,0,OK
+Ledsone,163225404503,GB,ACOS,9,9,0,OK
+Ledsone,163225404503,GB,LY Ad-Generated,0,0,0,OK
+Ledsone,163225404503,GB,LY Units,0,0,0,OK
+Ledsone,163225404503,GB,TY Units,1,1,0,OK
+Ledsone,163225404503,GB,LY Order Lines,0,0,0,OK
+Ledsone,163225404503,GB,TY Order Lines,1,1,0,OK
+Ledsone,163225404503,GB,Segment,A,A,0,OK
+Ledsone,163605069793,GB,LY Sales,0,0,0,OK
+Ledsone,163605069793,GB,TY Sales,0,0,0,OK
+Ledsone,163605069793,GB,YoY %,null,null,0,OK
+Ledsone,163605069793,GB,YoY label,N/A,N/A,,OK
+Ledsone,163605069793,GB,LY Ad Sales,0,0,0,OK
+Ledsone,163605069793,GB,TY Ad Sales,0,0,0,OK
+Ledsone,163605069793,GB,LY Views,12,12,0,OK
+Ledsone,163605069793,GB,TY Views,0,0,0,OK
+Ledsone,163605069793,GB,LY Orders,0,0,0,OK
+Ledsone,163605069793,GB,TY Orders,0,0,0,OK
+Ledsone,163605069793,GB,LY Conversion %,0,0,0,OK
+Ledsone,163605069793,GB,TY Conversion %,null,null,0,OK
+Ledsone,163605069793,GB,LY Price,null,null,0,OK
+Ledsone,163605069793,GB,TY Price,null,null,0,OK
+Ledsone,163605069793,GB,Ad Impressions,0,0,0,OK
+Ledsone,163605069793,GB,Ad Clicks,0,0,0,OK
+Ledsone,163605069793,GB,Ad Spend,0,0,0,OK
+Ledsone,163605069793,GB,Ad Sales,0,0,0,OK
+Ledsone,163605069793,GB,ROAS,null,null,0,OK
+Ledsone,163605069793,GB,ACOS,null,null,0,OK
+Ledsone,163605069793,GB,LY Ad-Generated,0,0,0,OK
+Ledsone,163605069793,GB,LY Units,0,0,0,OK
+Ledsone,163605069793,GB,TY Units,0,0,0,OK
+Ledsone,163605069793,GB,LY Order Lines,0,0,0,OK
+Ledsone,163605069793,GB,TY Order Lines,0,0,0,OK
+Ledsone,163605069793,GB,Segment,Other,Other,0,OK
+Ledsone,163617109673,GB,LY Sales,0,0,0,OK
+Ledsone,163617109673,GB,TY Sales,32.97,32.97,0,OK
+Ledsone,163617109673,GB,YoY %,null,null,0,OK
+Ledsone,163617109673,GB,YoY label,NEW,NEW,,OK
+Ledsone,163617109673,GB,LY Ad Sales,0,0,0,OK
+Ledsone,163617109673,GB,TY Ad Sales,0,0,0,OK
+Ledsone,163617109673,GB,LY Views,16,16,0,OK
+Ledsone,163617109673,GB,TY Views,38,38,0,OK
+Ledsone,163617109673,GB,LY Orders,0,0,0,OK
+Ledsone,163617109673,GB,TY Orders,1,1,0,OK
+Ledsone,163617109673,GB,LY Conversion %,0,0,0,OK
+Ledsone,163617109673,GB,TY Conversion %,7.89,7.89,0,OK
+Ledsone,163617109673,GB,LY Price,null,null,0,OK
+Ledsone,163617109673,GB,TY Price,10.99,10.99,0,OK
+Ledsone,163617109673,GB,Ad Impressions,0,0,0,OK
+Ledsone,163617109673,GB,Ad Clicks,0,0,0,OK
+Ledsone,163617109673,GB,Ad Spend,0,0,0,OK
+Ledsone,163617109673,GB,Ad Sales,0,0,0,OK
+Ledsone,163617109673,GB,ROAS,null,null,0,OK
+Ledsone,163617109673,GB,ACOS,null,null,0,OK
+Ledsone,163617109673,GB,LY Ad-Generated,0,0,0,OK
+Ledsone,163617109673,GB,LY Units,0,0,0,OK
+Ledsone,163617109673,GB,TY Units,3,3,0,OK
+Ledsone,163617109673,GB,LY Order Lines,0,0,0,OK
+Ledsone,163617109673,GB,TY Order Lines,3,3,0,OK
+Ledsone,163617109673,GB,Segment,A,A,0,OK
+Ledsone,164043595851,GB,LY Sales,289.14,289.14,0,OK
+Ledsone,164043595851,GB,TY Sales,21.98,21.98,0,OK
+Ledsone,164043595851,GB,YoY %,-92.4,-92.4,0,OK
+Ledsone,164043595851,GB,YoY label,null,null,,OK
+Ledsone,164043595851,GB,LY Ad Sales,289.14,289.14,0,OK
+Ledsone,164043595851,GB,TY Ad Sales,20.88,20.88,0,OK
+Ledsone,164043595851,GB,LY Views,495,495,0,OK
+Ledsone,164043595851,GB,TY Views,53,53,0,OK
+Ledsone,164043595851,GB,LY Orders,13,13,0,OK
+Ledsone,164043595851,GB,TY Orders,1,1,0,OK
+Ledsone,164043595851,GB,LY Conversion %,3.03,3.03,0,OK
+Ledsone,164043595851,GB,TY Conversion %,3.77,3.77,0,OK
+Ledsone,164043595851,GB,LY Price,19.28,19.28,0,OK
+Ledsone,164043595851,GB,TY Price,10.99,10.99,0,OK
+Ledsone,164043595851,GB,Ad Impressions,34252,34252,0,OK
+Ledsone,164043595851,GB,Ad Clicks,18,18,0,OK
+Ledsone,164043595851,GB,Ad Spend,4.64,4.64,0,OK
+Ledsone,164043595851,GB,Ad Sales,20.88,20.88,0,OK
+Ledsone,164043595851,GB,ROAS,4.5,4.5,0,OK
+Ledsone,164043595851,GB,ACOS,22.22,22.22,0,OK
+Ledsone,164043595851,GB,LY Ad-Generated,246.27,246.27,0,OK
+Ledsone,164043595851,GB,LY Units,15,15,0,OK
+Ledsone,164043595851,GB,TY Units,2,2,0,OK
+Ledsone,164043595851,GB,LY Order Lines,13,13,0,OK
+Ledsone,164043595851,GB,TY Order Lines,1,1,0,OK
+Ledsone,164043595851,GB,Segment,B-or-Other,Other,0,OK
+ledsone uk de,164048116338,DE,LY Sales,0,0,0,OK
+ledsone uk de,164048116338,DE,TY Sales,0,0,0,OK
+ledsone uk de,164048116338,DE,YoY %,null,null,0,OK
+ledsone uk de,164048116338,DE,YoY label,N/A,N/A,,OK
+ledsone uk de,164048116338,DE,LY Ad Sales,0,0,0,OK
+ledsone uk de,164048116338,DE,TY Ad Sales,0,0,0,OK
+ledsone uk de,164048116338,DE,LY Views,7,7,0,OK
+ledsone uk de,164048116338,DE,TY Views,8,8,0,OK
+ledsone uk de,164048116338,DE,LY Orders,0,0,0,OK
+ledsone uk de,164048116338,DE,TY Orders,0,0,0,OK
+ledsone uk de,164048116338,DE,LY Conversion %,0,0,0,OK
+ledsone uk de,164048116338,DE,TY Conversion %,0,0,0,OK
+ledsone uk de,164048116338,DE,LY Price,null,null,0,OK
+ledsone uk de,164048116338,DE,TY Price,null,null,0,OK
+ledsone uk de,164048116338,DE,Ad Impressions,5362,5362,0,OK
+ledsone uk de,164048116338,DE,Ad Clicks,5,5,0,OK
+ledsone uk de,164048116338,DE,Ad Spend,0.68,0.68,0,OK
+ledsone uk de,164048116338,DE,Ad Sales,0,0,0,OK
+ledsone uk de,164048116338,DE,ROAS,0,0,0,OK
+ledsone uk de,164048116338,DE,ACOS,null,null,0,OK
+ledsone uk de,164048116338,DE,LY Ad-Generated,0,0,0,OK
+ledsone uk de,164048116338,DE,LY Units,0,0,0,OK
+ledsone uk de,164048116338,DE,TY Units,0,0,0,OK
+ledsone uk de,164048116338,DE,LY Order Lines,0,0,0,OK
+ledsone uk de,164048116338,DE,TY Order Lines,0,0,0,OK
+ledsone uk de,164048116338,DE,Segment,Other,Other,0,OK
+Ledsone,164525233292,GB,LY Sales,1210.05,1210.05,0,OK
+Ledsone,164525233292,GB,TY Sales,515.21,515.21,0,OK
+Ledsone,164525233292,GB,YoY %,-57.42,-57.42,0,OK
+Ledsone,164525233292,GB,YoY label,null,null,,OK
+Ledsone,164525233292,GB,LY Ad Sales,1410.45,1410.45,0,OK
+Ledsone,164525233292,GB,TY Ad Sales,172.5,172.5,0,OK
+Ledsone,164525233292,GB,LY Views,3056,3056,0,OK
+Ledsone,164525233292,GB,TY Views,778,778,0,OK
+Ledsone,164525233292,GB,LY Orders,62,62,0,OK
+Ledsone,164525233292,GB,TY Orders,21,21,0,OK
+Ledsone,164525233292,GB,LY Conversion %,2.72,2.72,0,OK
+Ledsone,164525233292,GB,TY Conversion %,5.14,5.14,0,OK
+Ledsone,164525233292,GB,LY Price,12.87,12.87,0,OK
+Ledsone,164525233292,GB,TY Price,13.21,13.21,0,OK
+Ledsone,164525233292,GB,Ad Impressions,90146,90146,0,OK
+Ledsone,164525233292,GB,Ad Clicks,290,290,0,OK
+Ledsone,164525233292,GB,Ad Spend,53.53,53.53,0,OK
+Ledsone,164525233292,GB,Ad Sales,172.5,172.5,0,OK
+Ledsone,164525233292,GB,ROAS,3.22,3.22,0,OK
+Ledsone,164525233292,GB,ACOS,31.03,31.03,0,OK
+Ledsone,164525233292,GB,LY Ad-Generated,1210.05,1210.05,0,OK
+Ledsone,164525233292,GB,LY Units,94,94,0,OK
+Ledsone,164525233292,GB,TY Units,39,39,0,OK
+Ledsone,164525233292,GB,LY Order Lines,66,66,0,OK
+Ledsone,164525233292,GB,TY Order Lines,23,23,0,OK
+Ledsone,164525233292,GB,Segment,B-or-Other,Other,0,OK
+ledsone uk de,164897638505,DE,LY Sales,96.27,96.27,0,OK
+ledsone uk de,164897638505,DE,TY Sales,0,0,0,OK
+ledsone uk de,164897638505,DE,YoY %,-100,-100,0,OK
+ledsone uk de,164897638505,DE,YoY label,null,null,,OK
+ledsone uk de,164897638505,DE,LY Ad Sales,117.81,117.81,0,OK
+ledsone uk de,164897638505,DE,TY Ad Sales,0,0,0,OK
+ledsone uk de,164897638505,DE,LY Views,41,41,0,OK
+ledsone uk de,164897638505,DE,TY Views,6,6,0,OK
+ledsone uk de,164897638505,DE,LY Orders,4,4,0,OK
+ledsone uk de,164897638505,DE,TY Orders,0,0,0,OK
+ledsone uk de,164897638505,DE,LY Conversion %,17.07,17.07,0,OK
+ledsone uk de,164897638505,DE,TY Conversion %,0,0,0,OK
+ledsone uk de,164897638505,DE,LY Price,9.63,9.63,0,OK
+ledsone uk de,164897638505,DE,TY Price,null,null,0,OK
+ledsone uk de,164897638505,DE,Ad Impressions,0,0,0,OK
+ledsone uk de,164897638505,DE,Ad Clicks,0,0,0,OK
+ledsone uk de,164897638505,DE,Ad Spend,0,0,0,OK
+ledsone uk de,164897638505,DE,Ad Sales,0,0,0,OK
+ledsone uk de,164897638505,DE,ROAS,null,null,0,OK
+ledsone uk de,164897638505,DE,ACOS,null,null,0,OK
+ledsone uk de,164897638505,DE,LY Ad-Generated,96.27,96.27,0,OK
+ledsone uk de,164897638505,DE,LY Units,10,10,0,OK
+ledsone uk de,164897638505,DE,TY Units,0,0,0,OK
+ledsone uk de,164897638505,DE,LY Order Lines,4,4,0,OK
+ledsone uk de,164897638505,DE,TY Order Lines,0,0,0,OK
+ledsone uk de,164897638505,DE,Segment,D,D,0,OK
+Ledsone,166596769613,GB,LY Sales,48.38,48.38,0,OK
+Ledsone,166596769613,GB,TY Sales,44.8,44.8,0,OK
+Ledsone,166596769613,GB,YoY %,-7.4,-7.4,0,OK
+Ledsone,166596769613,GB,YoY label,null,null,,OK
+Ledsone,166596769613,GB,LY Ad Sales,48.38,48.38,0,OK
+Ledsone,166596769613,GB,TY Ad Sales,44.8,44.8,0,OK
+Ledsone,166596769613,GB,LY Views,37,37,0,OK
+Ledsone,166596769613,GB,TY Views,41,41,0,OK
+Ledsone,166596769613,GB,LY Orders,2,2,0,OK
+Ledsone,166596769613,GB,TY Orders,3,3,0,OK
+Ledsone,166596769613,GB,LY Conversion %,5.41,5.41,0,OK
+Ledsone,166596769613,GB,TY Conversion %,7.32,7.32,0,OK
+Ledsone,166596769613,GB,LY Price,24.19,24.19,0,OK
+Ledsone,166596769613,GB,TY Price,14.93,14.93,0,OK
+Ledsone,166596769613,GB,Ad Impressions,24728,24728,0,OK
+Ledsone,166596769613,GB,Ad Clicks,16,16,0,OK
+Ledsone,166596769613,GB,Ad Spend,3.58,3.58,0,OK
+Ledsone,166596769613,GB,Ad Sales,44.8,44.8,0,OK
+Ledsone,166596769613,GB,ROAS,12.51,12.51,0,OK
+Ledsone,166596769613,GB,ACOS,7.99,7.99,0,OK
+Ledsone,166596769613,GB,LY Ad-Generated,48.38,48.38,0,OK
+Ledsone,166596769613,GB,LY Units,2,2,0,OK
+Ledsone,166596769613,GB,TY Units,3,3,0,OK
+Ledsone,166596769613,GB,LY Order Lines,2,2,0,OK
+Ledsone,166596769613,GB,TY Order Lines,3,3,0,OK
+Ledsone,166596769613,GB,Segment,B-or-Other,B,0,OK
+Ledsone,166598283141,GB,LY Sales,15.28,15.28,0,OK
+Ledsone,166598283141,GB,TY Sales,29.35,29.35,0,OK
+Ledsone,166598283141,GB,YoY %,92.08,92.08,0,OK
+Ledsone,166598283141,GB,YoY label,null,null,,OK
+Ledsone,166598283141,GB,LY Ad Sales,15.28,15.28,0,OK
+Ledsone,166598283141,GB,TY Ad Sales,0,0,0,OK
+Ledsone,166598283141,GB,LY Views,73,73,0,OK
+Ledsone,166598283141,GB,TY Views,48,48,0,OK
+Ledsone,166598283141,GB,LY Orders,2,2,0,OK
+Ledsone,166598283141,GB,TY Orders,4,4,0,OK
+Ledsone,166598283141,GB,LY Conversion %,2.74,2.74,0,OK
+Ledsone,166598283141,GB,TY Conversion %,10.42,10.42,0,OK
+Ledsone,166598283141,GB,LY Price,7.64,7.64,0,OK
+Ledsone,166598283141,GB,TY Price,5.87,5.87,0,OK
+Ledsone,166598283141,GB,Ad Impressions,0,0,0,OK
+Ledsone,166598283141,GB,Ad Clicks,0,0,0,OK
+Ledsone,166598283141,GB,Ad Spend,0,0,0,OK
+Ledsone,166598283141,GB,Ad Sales,0,0,0,OK
+Ledsone,166598283141,GB,ROAS,null,null,0,OK
+Ledsone,166598283141,GB,ACOS,null,null,0,OK
+Ledsone,166598283141,GB,LY Ad-Generated,15.28,15.28,0,OK
+Ledsone,166598283141,GB,LY Units,2,2,0,OK
+Ledsone,166598283141,GB,TY Units,5,5,0,OK
+Ledsone,166598283141,GB,LY Order Lines,2,2,0,OK
+Ledsone,166598283141,GB,TY Order Lines,5,5,0,OK
+Ledsone,166598283141,GB,Segment,C,C,0,OK
+Ledsone,166598501724,GB,LY Sales,173.1,173.1,0,OK
+Ledsone,166598501724,GB,TY Sales,43.74,43.74,0,OK
+Ledsone,166598501724,GB,YoY %,-74.73,-74.73,0,OK
+Ledsone,166598501724,GB,YoY label,null,null,,OK
+Ledsone,166598501724,GB,LY Ad Sales,173.1,173.1,0,OK
+Ledsone,166598501724,GB,TY Ad Sales,96.6,96.6,0,OK
+Ledsone,166598501724,GB,LY Views,383,383,0,OK
+Ledsone,166598501724,GB,TY Views,163,163,0,OK
+Ledsone,166598501724,GB,LY Orders,30,30,0,OK
+Ledsone,166598501724,GB,TY Orders,6,6,0,OK
+Ledsone,166598501724,GB,LY Conversion %,7.31,7.31,0,OK
+Ledsone,166598501724,GB,TY Conversion %,3.68,3.68,0,OK
+Ledsone,166598501724,GB,LY Price,5.77,5.77,0,OK
+Ledsone,166598501724,GB,TY Price,7.29,7.29,0,OK
+Ledsone,166598501724,GB,Ad Impressions,37283,37283,0,OK
+Ledsone,166598501724,GB,Ad Clicks,75,75,0,OK
+Ledsone,166598501724,GB,Ad Spend,13.47,13.47,0,OK
+Ledsone,166598501724,GB,Ad Sales,96.6,96.6,0,OK
+Ledsone,166598501724,GB,ROAS,7.17,7.17,0,OK
+Ledsone,166598501724,GB,ACOS,13.94,13.94,0,OK
+Ledsone,166598501724,GB,LY Ad-Generated,173.1,173.1,0,OK
+Ledsone,166598501724,GB,LY Units,30,30,0,OK
+Ledsone,166598501724,GB,TY Units,6,6,0,OK
+Ledsone,166598501724,GB,LY Order Lines,30,30,0,OK
+Ledsone,166598501724,GB,TY Order Lines,6,6,0,OK
+Ledsone,166598501724,GB,Segment,B-or-Other,Other,0,OK
+Ledsone,166748372610,GB,LY Sales,0,0,0,OK
+Ledsone,166748372610,GB,TY Sales,0,0,0,OK
+Ledsone,166748372610,GB,YoY %,null,null,0,OK
+Ledsone,166748372610,GB,YoY label,N/A,N/A,,OK
+Ledsone,166748372610,GB,LY Ad Sales,0,0,0,OK
+Ledsone,166748372610,GB,TY Ad Sales,0,0,0,OK
+Ledsone,166748372610,GB,LY Views,5,5,0,OK
+Ledsone,166748372610,GB,TY Views,13,13,0,OK
+Ledsone,166748372610,GB,LY Orders,0,0,0,OK
+Ledsone,166748372610,GB,TY Orders,0,0,0,OK
+Ledsone,166748372610,GB,LY Conversion %,0,0,0,OK
+Ledsone,166748372610,GB,TY Conversion %,0,0,0,OK
+Ledsone,166748372610,GB,LY Price,null,null,0,OK
+Ledsone,166748372610,GB,TY Price,null,null,0,OK
+Ledsone,166748372610,GB,Ad Impressions,1882,1882,0,OK
+Ledsone,166748372610,GB,Ad Clicks,3,3,0,OK
+Ledsone,166748372610,GB,Ad Spend,0,0,0,OK
+Ledsone,166748372610,GB,Ad Sales,0,0,0,OK
+Ledsone,166748372610,GB,ROAS,null,null,0,OK
+Ledsone,166748372610,GB,ACOS,null,null,0,OK
+Ledsone,166748372610,GB,LY Ad-Generated,0,0,0,OK
+Ledsone,166748372610,GB,LY Units,0,0,0,OK
+Ledsone,166748372610,GB,TY Units,0,0,0,OK
+Ledsone,166748372610,GB,LY Order Lines,0,0,0,OK
+Ledsone,166748372610,GB,TY Order Lines,0,0,0,OK
+Ledsone,166748372610,GB,Segment,Other,Other,0,OK
+Sunsone,313605234632,GB,LY Sales,0,0,0,OK
+Sunsone,313605234632,GB,TY Sales,0,0,0,OK
+Sunsone,313605234632,GB,YoY %,null,null,0,OK
+Sunsone,313605234632,GB,YoY label,N/A,N/A,,OK
+Sunsone,313605234632,GB,LY Ad Sales,0,0,0,OK
+Sunsone,313605234632,GB,TY Ad Sales,0,0,0,OK
+Sunsone,313605234632,GB,LY Views,12,12,0,OK
+Sunsone,313605234632,GB,TY Views,9,9,0,OK
+Sunsone,313605234632,GB,LY Orders,0,0,0,OK
+Sunsone,313605234632,GB,TY Orders,0,0,0,OK
+Sunsone,313605234632,GB,LY Conversion %,0,0,0,OK
+Sunsone,313605234632,GB,TY Conversion %,0,0,0,OK
+Sunsone,313605234632,GB,LY Price,null,null,0,OK
+Sunsone,313605234632,GB,TY Price,null,null,0,OK
+Sunsone,313605234632,GB,Ad Impressions,0,0,0,OK
+Sunsone,313605234632,GB,Ad Clicks,0,0,0,OK
+Sunsone,313605234632,GB,Ad Spend,0,0,0,OK
+Sunsone,313605234632,GB,Ad Sales,0,0,0,OK
+Sunsone,313605234632,GB,ROAS,null,null,0,OK
+Sunsone,313605234632,GB,ACOS,null,null,0,OK
+Sunsone,313605234632,GB,LY Ad-Generated,0,0,0,OK
+Sunsone,313605234632,GB,LY Units,0,0,0,OK
+Sunsone,313605234632,GB,TY Units,0,0,0,OK
+Sunsone,313605234632,GB,LY Order Lines,0,0,0,OK
+Sunsone,313605234632,GB,TY Order Lines,0,0,0,OK
+Sunsone,313605234632,GB,Segment,Other,Other,0,OK
+Sunsone,317866396609,GB,LY Sales,0,0,0,OK
+Sunsone,317866396609,GB,TY Sales,56.67,56.67,0,OK
+Sunsone,317866396609,GB,YoY %,null,null,0,OK
+Sunsone,317866396609,GB,YoY label,NEW,NEW,,OK
+Sunsone,317866396609,GB,LY Ad Sales,0,0,0,OK
+Sunsone,317866396609,GB,TY Ad Sales,52.68,52.68,0,OK
+Sunsone,317866396609,GB,LY Views,0,0,0,OK
+Sunsone,317866396609,GB,TY Views,158,158,0,OK
+Sunsone,317866396609,GB,LY Orders,0,0,0,OK
+Sunsone,317866396609,GB,TY Orders,1,1,0,OK
+Sunsone,317866396609,GB,LY Conversion %,null,null,0,OK
+Sunsone,317866396609,GB,TY Conversion %,1.9,1.9,0,OK
+Sunsone,317866396609,GB,LY Price,null,null,0,OK
+Sunsone,317866396609,GB,TY Price,18.89,18.89,0,OK
+Sunsone,317866396609,GB,Ad Impressions,42876,42876,0,OK
+Sunsone,317866396609,GB,Ad Clicks,55,55,0,OK
+Sunsone,317866396609,GB,Ad Spend,4.21,4.21,0,OK
+Sunsone,317866396609,GB,Ad Sales,52.68,52.68,0,OK
+Sunsone,317866396609,GB,ROAS,12.51,12.51,0,OK
+Sunsone,317866396609,GB,ACOS,7.99,7.99,0,OK
+Sunsone,317866396609,GB,LY Ad-Generated,0,0,0,OK
+Sunsone,317866396609,GB,LY Units,0,0,0,OK
+Sunsone,317866396609,GB,TY Units,3,3,0,OK
+Sunsone,317866396609,GB,LY Order Lines,0,0,0,OK
+Sunsone,317866396609,GB,TY Order Lines,1,1,0,OK
+Sunsone,317866396609,GB,Segment,A,A,0,OK
+Electricalsone,265232354037,GB,LY Sales,0,0,0,OK
+Electricalsone,265232354037,GB,TY Sales,0,0,0,OK
+Electricalsone,265232354037,GB,YoY %,null,null,0,OK
+Electricalsone,265232354037,GB,YoY label,N/A,N/A,,OK
+Electricalsone,265232354037,GB,LY Ad Sales,0,0,0,OK
+Electricalsone,265232354037,GB,TY Ad Sales,0,0,0,OK
+Electricalsone,265232354037,GB,LY Views,18,18,0,OK
+Electricalsone,265232354037,GB,TY Views,7,7,0,OK
+Electricalsone,265232354037,GB,LY Orders,0,0,0,OK
+Electricalsone,265232354037,GB,TY Orders,0,0,0,OK
+Electricalsone,265232354037,GB,LY Conversion %,0,0,0,OK
+Electricalsone,265232354037,GB,TY Conversion %,0,0,0,OK
+Electricalsone,265232354037,GB,LY Price,null,null,0,OK
+Electricalsone,265232354037,GB,TY Price,null,null,0,OK
+Electricalsone,265232354037,GB,Ad Impressions,3271,3271,0,OK
+Electricalsone,265232354037,GB,Ad Clicks,1,1,0,OK
+Electricalsone,265232354037,GB,Ad Spend,0,0,0,OK
+Electricalsone,265232354037,GB,Ad Sales,0,0,0,OK
+Electricalsone,265232354037,GB,ROAS,null,null,0,OK
+Electricalsone,265232354037,GB,ACOS,null,null,0,OK
+Electricalsone,265232354037,GB,LY Ad-Generated,0,0,0,OK
+Electricalsone,265232354037,GB,LY Units,0,0,0,OK
+Electricalsone,265232354037,GB,TY Units,0,0,0,OK
+Electricalsone,265232354037,GB,LY Order Lines,0,0,0,OK
+Electricalsone,265232354037,GB,TY Order Lines,0,0,0,OK
+Electricalsone,265232354037,GB,Segment,Other,Other,0,OK
+Electricalsone,266929449611,GB,LY Sales,9.89,9.89,0,OK
+Electricalsone,266929449611,GB,TY Sales,165.07,165.07,0,OK
+Electricalsone,266929449611,GB,YoY %,1569.06,1569.06,0,OK
+Electricalsone,266929449611,GB,YoY label,null,null,,OK
+Electricalsone,266929449611,GB,LY Ad Sales,9.89,9.89,0,OK
+Electricalsone,266929449611,GB,TY Ad Sales,155.39,155.39,0,OK
+Electricalsone,266929449611,GB,LY Views,147,147,0,OK
+Electricalsone,266929449611,GB,TY Views,187,187,0,OK
+Electricalsone,266929449611,GB,LY Orders,1,1,0,OK
+Electricalsone,266929449611,GB,TY Orders,5,5,0,OK
+Electricalsone,266929449611,GB,LY Conversion %,0.68,0.68,0,OK
+Electricalsone,266929449611,GB,TY Conversion %,6.95,6.95,0,OK
+Electricalsone,266929449611,GB,LY Price,9.89,9.89,0,OK
+Electricalsone,266929449611,GB,TY Price,12.7,12.7,0,OK
+Electricalsone,266929449611,GB,Ad Impressions,36381,36381,0,OK
+Electricalsone,266929449611,GB,Ad Clicks,33,33,0,OK
+Electricalsone,266929449611,GB,Ad Spend,15.76,15.76,0,OK
+Electricalsone,266929449611,GB,Ad Sales,155.39,155.39,0,OK
+Electricalsone,266929449611,GB,ROAS,9.86,9.86,0,OK
+Electricalsone,266929449611,GB,ACOS,10.14,10.14,0,OK
+Electricalsone,266929449611,GB,LY Ad-Generated,9.89,9.89,0,OK
+Electricalsone,266929449611,GB,LY Units,1,1,0,OK
+Electricalsone,266929449611,GB,TY Units,13,13,0,OK
+Electricalsone,266929449611,GB,LY Order Lines,1,1,0,OK
+Electricalsone,266929449611,GB,TY Order Lines,7,7,0,OK
+Electricalsone,266929449611,GB,Segment,A,A,0,OK
+ledsone de,405328319833,DE,LY Sales,77.48,77.48,0,OK
+ledsone de,405328319833,DE,TY Sales,0,0,0,OK
+ledsone de,405328319833,DE,YoY %,-100,-100,0,OK
+ledsone de,405328319833,DE,YoY label,null,null,,OK
+ledsone de,405328319833,DE,LY Ad Sales,69.72,69.72,0,OK
+ledsone de,405328319833,DE,TY Ad Sales,0,0,0,OK
+ledsone de,405328319833,DE,LY Views,12,12,0,OK
+ledsone de,405328319833,DE,TY Views,3,3,0,OK
+ledsone de,405328319833,DE,LY Orders,1,1,0,OK
+ledsone de,405328319833,DE,TY Orders,0,0,0,OK
+ledsone de,405328319833,DE,LY Conversion %,33.33,33.33,0,OK
+ledsone de,405328319833,DE,TY Conversion %,0,0,0,OK
+ledsone de,405328319833,DE,LY Price,19.37,19.37,0,OK
+ledsone de,405328319833,DE,TY Price,null,null,0,OK
+ledsone de,405328319833,DE,Ad Impressions,538,538,0,OK
+ledsone de,405328319833,DE,Ad Clicks,0,0,0,OK
+ledsone de,405328319833,DE,Ad Spend,0,0,0,OK
+ledsone de,405328319833,DE,Ad Sales,0,0,0,OK
+ledsone de,405328319833,DE,ROAS,null,null,0,OK
+ledsone de,405328319833,DE,ACOS,null,null,0,OK
+ledsone de,405328319833,DE,LY Ad-Generated,0,0,0,OK
+ledsone de,405328319833,DE,LY Units,4,4,0,OK
+ledsone de,405328319833,DE,TY Units,0,0,0,OK
+ledsone de,405328319833,DE,LY Order Lines,1,1,0,OK
+ledsone de,405328319833,DE,TY Order Lines,0,0,0,OK
+ledsone de,405328319833,DE,Segment,D,D,0,OK
+ledsone de,405328319890,DE,LY Sales,0,0,0,OK
+ledsone de,405328319890,DE,TY Sales,0,0,0,OK
+ledsone de,405328319890,DE,YoY %,null,null,0,OK
+ledsone de,405328319890,DE,YoY label,N/A,N/A,,OK
+ledsone de,405328319890,DE,LY Ad Sales,0,0,0,OK
+ledsone de,405328319890,DE,TY Ad Sales,0,0,0,OK
+ledsone de,405328319890,DE,LY Views,5,5,0,OK
+ledsone de,405328319890,DE,TY Views,0,0,0,OK
+ledsone de,405328319890,DE,LY Orders,0,0,0,OK
+ledsone de,405328319890,DE,TY Orders,0,0,0,OK
+ledsone de,405328319890,DE,LY Conversion %,0,0,0,OK
+ledsone de,405328319890,DE,TY Conversion %,null,null,0,OK
+ledsone de,405328319890,DE,LY Price,null,null,0,OK
+ledsone de,405328319890,DE,TY Price,null,null,0,OK
+ledsone de,405328319890,DE,Ad Impressions,223,223,0,OK
+ledsone de,405328319890,DE,Ad Clicks,0,0,0,OK
+ledsone de,405328319890,DE,Ad Spend,0,0,0,OK
+ledsone de,405328319890,DE,Ad Sales,0,0,0,OK
+ledsone de,405328319890,DE,ROAS,null,null,0,OK
+ledsone de,405328319890,DE,ACOS,null,null,0,OK
+ledsone de,405328319890,DE,LY Ad-Generated,0,0,0,OK
+ledsone de,405328319890,DE,LY Units,0,0,0,OK
+ledsone de,405328319890,DE,TY Units,0,0,0,OK
+ledsone de,405328319890,DE,LY Order Lines,0,0,0,OK
+ledsone de,405328319890,DE,TY Order Lines,0,0,0,OK
+ledsone de,405328319890,DE,Segment,Other,Other,0,OK
+Huttenlampen,394107366804,DE,LY Sales,0,0,0,OK
+Huttenlampen,394107366804,DE,TY Sales,0,0,0,OK
+Huttenlampen,394107366804,DE,YoY %,null,null,0,OK
+Huttenlampen,394107366804,DE,YoY label,N/A,N/A,,OK
+Huttenlampen,394107366804,DE,LY Ad Sales,0,0,0,OK
+Huttenlampen,394107366804,DE,TY Ad Sales,0,0,0,OK
+Huttenlampen,394107366804,DE,LY Views,60,60,0,OK
+Huttenlampen,394107366804,DE,TY Views,5,5,0,OK
+Huttenlampen,394107366804,DE,LY Orders,0,0,0,OK
+Huttenlampen,394107366804,DE,TY Orders,0,0,0,OK
+Huttenlampen,394107366804,DE,LY Conversion %,0,0,0,OK
+Huttenlampen,394107366804,DE,TY Conversion %,0,0,0,OK
+Huttenlampen,394107366804,DE,LY Price,null,null,0,OK
+Huttenlampen,394107366804,DE,TY Price,null,null,0,OK
+Huttenlampen,394107366804,DE,Ad Impressions,0,0,0,OK
+Huttenlampen,394107366804,DE,Ad Clicks,0,0,0,OK
+Huttenlampen,394107366804,DE,Ad Spend,0,0,0,OK
+Huttenlampen,394107366804,DE,Ad Sales,0,0,0,OK
+Huttenlampen,394107366804,DE,ROAS,null,null,0,OK
+Huttenlampen,394107366804,DE,ACOS,null,null,0,OK
+Huttenlampen,394107366804,DE,LY Ad-Generated,0,0,0,OK
+Huttenlampen,394107366804,DE,LY Units,0,0,0,OK
+Huttenlampen,394107366804,DE,TY Units,0,0,0,OK
+Huttenlampen,394107366804,DE,LY Order Lines,0,0,0,OK
+Huttenlampen,394107366804,DE,TY Order Lines,0,0,0,OK
+Huttenlampen,394107366804,DE,Segment,Other,Other,0,OK
+Huttenlampen,394108402532,DE,LY Sales,22.78,22.78,0,OK
+Huttenlampen,394108402532,DE,TY Sales,14.49,14.49,0,OK
+Huttenlampen,394108402532,DE,YoY %,-36.39,-36.39,0,OK
+Huttenlampen,394108402532,DE,YoY label,null,null,,OK
+Huttenlampen,394108402532,DE,LY Ad Sales,43.28,43.28,0,OK
+Huttenlampen,394108402532,DE,TY Ad Sales,0,0,0,OK
+Huttenlampen,394108402532,DE,LY Views,44,44,0,OK
+Huttenlampen,394108402532,DE,TY Views,29,29,0,OK
+Huttenlampen,394108402532,DE,LY Orders,1,1,0,OK
+Huttenlampen,394108402532,DE,TY Orders,1,1,0,OK
+Huttenlampen,394108402532,DE,LY Conversion %,4.55,4.55,0,OK
+Huttenlampen,394108402532,DE,TY Conversion %,3.45,3.45,0,OK
+Huttenlampen,394108402532,DE,LY Price,11.39,11.39,0,OK
+Huttenlampen,394108402532,DE,TY Price,14.49,14.49,0,OK
+Huttenlampen,394108402532,DE,Ad Impressions,0,0,0,OK
+Huttenlampen,394108402532,DE,Ad Clicks,0,0,0,OK
+Huttenlampen,394108402532,DE,Ad Spend,0,0,0,OK
+Huttenlampen,394108402532,DE,Ad Sales,0,0,0,OK
+Huttenlampen,394108402532,DE,ROAS,null,null,0,OK
+Huttenlampen,394108402532,DE,ACOS,null,null,0,OK
+Huttenlampen,394108402532,DE,LY Ad-Generated,22.78,22.78,0,OK
+Huttenlampen,394108402532,DE,LY Units,2,2,0,OK
+Huttenlampen,394108402532,DE,TY Units,1,1,0,OK
+Huttenlampen,394108402532,DE,LY Order Lines,1,1,0,OK
+Huttenlampen,394108402532,DE,TY Order Lines,1,1,0,OK
+Huttenlampen,394108402532,DE,Segment,C,C,0,OK

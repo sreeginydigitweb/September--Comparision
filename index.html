@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>September Performance Comparison — LY vs TY</title>
+<title>September Product Performance Comparison — LY vs TY</title>
 <style>
   :root{
     --bg:#f6f7f9; --panel:#fff; --ink:#15181d; --muted:#666e7a; --line:#dfe3e8;
@@ -14,13 +14,17 @@
     --o:#eef0f3; --o-ink:#5b6371;
   }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);
+  html,body{height:100%}
+  /* The page itself never scrolls: header and filters stay put and the table body owns
+     the only scrollport, so nobody has to drag a 186-row page to reach the controls. */
+  body{margin:0;background:var(--bg);color:var(--ink);height:100vh;overflow:hidden;
+       display:flex;flex-direction:column;
        font:13px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
-  header{background:var(--panel);border-bottom:1px solid var(--line);padding:14px 18px 12px}
+  header{background:var(--panel);border-bottom:1px solid var(--line);padding:11px 18px 10px;flex:0 0 auto}
   h1{margin:0 0 2px;font-size:17px;font-weight:650;letter-spacing:-.2px}
   .sub{color:var(--muted);font-size:12px}
-  .notice{margin:10px 0 0;background:var(--warn-bg);border:1px solid var(--warn-line);
-          border-left-width:4px;border-radius:4px;padding:8px 11px;color:var(--warn-ink);font-size:12px}
+  .sub b{color:var(--ink,inherit);font-weight:650}
+  .scope{margin-top:6px;max-width:112ch;line-height:1.5}
   .notice b{font-weight:650}
   .cards{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
   .card{background:var(--panel);border:1px solid var(--line);border-radius:5px;
@@ -31,8 +35,8 @@
   .cur .card{min-width:160px}
   .cur .v{font-size:13px;font-weight:600}
   .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;
-            padding:10px 18px;background:var(--panel);border-bottom:1px solid var(--line);
-            position:sticky;top:0;z-index:20}
+            padding:8px 18px;background:var(--panel);border-bottom:1px solid var(--line);
+            flex:0 0 auto;z-index:20}
   select,input[type=search]{font:inherit;padding:5px 8px;border:1px solid var(--line);
             border-radius:4px;background:#fff;color:var(--ink)}
   input[type=search]{min-width:250px}
@@ -43,7 +47,7 @@
   button.primary:hover{background:#1a4fb4;border-color:#1a4fb4}
   button.primary:disabled{background:#aab4c4;border-color:#aab4c4;cursor:not-allowed}
   .count{margin-left:auto;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
-  .wrap{overflow:auto;max-height:calc(100vh - 150px);margin:0;background:var(--panel);
+  .wrap{overflow:auto;flex:1 1 auto;min-height:200px;margin:0;background:var(--panel);
         scrollbar-color:#9aa3ae #e9ecf1}
   /* prominent, easy-to-grab horizontal scrollbar */
   .wrap::-webkit-scrollbar{height:15px;width:12px}
@@ -65,55 +69,87 @@
 
   /* --- frozen identity columns: eBay ID + SKU stay put when scrolling right --- */
   th:nth-child(1),td:nth-child(1){position:sticky;left:0;width:118px;min-width:118px;max-width:118px}
-  th:nth-child(2),td:nth-child(2){position:sticky;left:118px;width:220px;min-width:220px;max-width:220px;
+  th:nth-child(2),td:nth-child(2){position:sticky;left:118px;width:62px;min-width:62px;max-width:62px}
+  th:nth-child(3),td:nth-child(3){position:sticky;left:180px;width:150px;min-width:150px;max-width:150px;
            border-right:1px solid #cdd3da}
-  tbody td:nth-child(1),tbody td:nth-child(2){z-index:4;background:var(--panel)}
+  th:nth-child(4),td:nth-child(4){width:120px;min-width:120px;max-width:120px}
+  th:nth-child(5),td:nth-child(5){width:230px;min-width:230px;max-width:230px}
+  td:nth-child(3),td:nth-child(4),td:nth-child(5){overflow:hidden;text-overflow:ellipsis}
+  tbody td:nth-child(1),tbody td:nth-child(2),tbody td:nth-child(3){z-index:4;background:var(--panel)}
   tbody tr:nth-child(even) td:nth-child(1),
-  tbody tr:nth-child(even) td:nth-child(2){background:#fafbfc}
+  tbody tr:nth-child(even) td:nth-child(2),
+  tbody tr:nth-child(even) td:nth-child(3){background:#fafbfc}
   tbody tr:hover td:nth-child(1),
-  tbody tr:hover td:nth-child(2){background:#eef4ff}
-  thead th:nth-child(1),thead th:nth-child(2){z-index:14}
+  tbody tr:hover td:nth-child(2),
+  tbody tr:hover td:nth-child(3){background:#eef4ff}
+  /* frozen headers must outrank both the sticky row and the sticky columns */
+  thead th:nth-child(1),thead th:nth-child(2),thead th:nth-child(3){z-index:14;background:#eef1f5}
   /* shadow appears only once the table is actually scrolled right */
-  .wrap.scrolled td:nth-child(2),.wrap.scrolled th:nth-child(2){box-shadow:6px 0 6px -4px rgba(0,0,0,.16)}
+  .wrap.scrolled td:nth-child(3),.wrap.scrolled th:nth-child(3){box-shadow:6px 0 6px -4px rgba(0,0,0,.16)}
 
+  td.imgcell{padding:2px 6px}
+  .thumb{width:44px;height:44px;object-fit:contain;background:#fff;border:1px solid var(--line);
+         border-radius:3px;display:block}
+  .noimg{display:inline-block;width:44px;height:44px;line-height:1.1;font-size:9px;color:#9aa3ae;
+         border:1px dashed var(--line);border-radius:3px;text-align:center;padding-top:13px;background:#fafbfc}
   .neg{color:var(--neg)} .pos{color:var(--pos)}
   .na{color:#aab1bb}
+  tr.empty td{position:static;padding:34px 18px;text-align:center;color:var(--muted);
+              font-size:13px;background:var(--panel)}
+  tr.empty .hint{display:block;margin-top:5px;font-size:11.5px;color:#9aa3ae}
+  .pend{color:#9a5b00;background:var(--warn-bg);border:1px solid var(--warn-line);
+        border-radius:9px;padding:1px 7px;font-size:10.5px;font-weight:600}
   .chip{display:inline-block;min-width:60px;text-align:center;padding:2px 9px;border-radius:10px;
         font-size:11px;font-weight:700;letter-spacing:.3px;border:1px solid transparent}
   .s-A{background:var(--a);color:var(--a-ink);border-color:#a8d8ba}
   .s-B{background:var(--b);color:var(--b-ink);border-color:#aac4f2}
   .s-C{background:var(--c);color:var(--c-ink);border-color:#eec48c}
   .s-D{background:var(--d);color:var(--d-ink);border-color:#f0b3ad}
-  .s-Other{background:var(--o);color:var(--o-ink);border-color:#d3d8e0}
   td:last-child{text-align:center}
-  .more{padding:11px 18px;text-align:center}
-  footer{padding:12px 18px 26px;color:var(--muted);font-size:11.5px;line-height:1.7}
+  .more{padding:7px 18px;text-align:center;flex:0 0 auto;background:var(--panel);
+        border-top:1px solid var(--line)}
+  /* Methodology sits in a collapsed drawer so the report is the first thing seen. */
+  footer{flex:0 0 auto;background:var(--panel);border-top:1px solid var(--line);
+         max-height:46vh;overflow:auto}
+  footer details{padding:7px 18px 12px}
+  footer summary{cursor:pointer;font-size:11.5px;font-weight:650;color:var(--ink);
+                 padding:3px 0;list-style:none;user-select:none}
+  footer summary::-webkit-details-marker{display:none}
+  footer summary::before{content:'▸ ';color:var(--accent)}
+  footer details[open] summary::before{content:'▾ '}
+  footer .body{color:var(--muted);font-size:11.5px;line-height:1.7;margin-top:6px;max-width:130ch}
   footer b{color:var(--ink);font-weight:600}
+  .period{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:8px;font-size:11.5px}
+  .period .lab{color:var(--muted);font-weight:650;text-transform:uppercase;font-size:10px;letter-spacing:.4px}
+  .pill{display:inline-flex;align-items:center;gap:6px;background:#eef2f8;border:1px solid var(--line);
+        border-radius:13px;padding:2px 11px;font-variant-numeric:tabular-nums}
+  .pill b{font-weight:650;color:var(--ink)}
+  .period .why{color:var(--muted);font-size:11px}
   .arrow{color:var(--accent)}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>September Performance Comparison — LY vs TY</h1>
+  <h1>September Product Performance Comparison — LY vs TY</h1>
   <div class="sub" id="sub">Loading…</div>
-  <div class="notice" id="notice"></div>
+  <div class="period" id="period"></div>
   <div class="cards" id="cards"></div>
   <div class="cur" id="curcards"></div>
 </header>
 
 <div class="controls">
   <select id="fAccount"><option value="">All accounts</option></select>
+  <select id="fCategory"><option value="">All categories</option></select>
   <select id="fSegment">
     <option value="">All segments</option>
     <option value="A">A — YoY Winner</option>
     <option value="B">B — YoY Recovery</option>
     <option value="C">C — Lost Ad Sales</option>
     <option value="D">D — Lost Performer</option>
-    <option value="Other">Other</option>
   </select>
   <select id="fCurrency"><option value="">All currencies</option></select>
-  <input type="search" id="q" placeholder="Search eBay ID, SKU or title…">
+  <input type="search" id="q" placeholder="Search eBay ID, SKU ID, Category or title…">
   <button id="reset">Clear filters</button>
   <button id="download" class="primary">Download CSV</button>
   <span class="count" id="count">—</span>
@@ -127,53 +163,98 @@
 </div>
 <div class="more"><button id="more" hidden>Show more</button></div>
 
-<footer id="foot"></footer>
+<footer><details id="notes"><summary>Data Notes &amp; Methodology</summary>
+  <div class="body" id="foot"></div></details></footer>
 
 <script>
 const COLS = [
   {k:'ebay_id',           t:'eBay ID',        f:'id'},
-  {k:'sku',               t:'SKU',            f:'sku'},
-  {k:'ly_sales',          t:'LY Sales',       f:'money'},
-  {k:'ty_sales',          t:'TY Sales',       f:'money'},
-  {k:'yoy_pct',           t:'YoY %',          f:'yoy'},
-  {k:'ly_ad_sales',       t:'LY Ad Sales',    f:'money'},
-  {k:'ty_ad_sales',       t:'TY Ad Sales',    f:'money'},
+  {k:'image_url',         t:'SKU Image',      f:'img'},
+  {k:'sku_id',            t:'SKU ID',         f:'sku'},
+  {k:'category',          t:'Category',       f:'sku'},
+  {k:'sku',               t:'SKU / Product',  f:'sku'},
+  {k:'ly_sales',          t:'LY Sales',            f:'money'},
+  {k:'ly_ad_generated',   t:'LY Ad-Generated',     f:'money'},
+  {k:'ly_non_ad',         t:'LY Non-Ad-Attributed',f:'money'},
+  {k:'ly_ad_pct',         t:'LY Ad Sales %',       f:'pct1'},
+  {k:'ty_sales',          t:'TY Sales',            f:'money'},
+  {k:'ty_ad_generated',   t:'TY Ad-Generated',     f:'pending'},
+  {k:'ty_non_ad',         t:'TY Non-Ad-Attributed',f:'na'},
+  {k:'ty_ad_pct',         t:'TY Ad Sales %',       f:'na'},
+  {k:'yoy_pct',           t:'YoY %',               f:'yoy'},
+  {k:'ly_ad_sales',       t:'LY eBay Attributed Ad Sales', f:'money'},
+  {k:'ty_ad_sales',       t:'TY eBay Attributed Ad Sales', f:'money'},
   {k:'ly_views',          t:'LY Views',       f:'int'},
   {k:'ty_views',          t:'TY Views',       f:'int'},
   {k:'ly_orders',         t:'LY Orders',      f:'int'},
   {k:'ty_orders',         t:'TY Orders',      f:'int'},
   {k:'ly_conversion_pct', t:'LY Conv %',      f:'pct'},
   {k:'ty_conversion_pct', t:'TY Conv %',      f:'pct'},
-  {k:'ly_price',          t:'LY Price',       f:'money'},
-  {k:'ty_price',          t:'TY Price',       f:'money'},
+  {k:'ly_price',          t:'LY Avg Price',   f:'money'},
+  {k:'ty_price',          t:'TY Avg Price',   f:'money'},
   {k:'ad_impressions',    t:'Ad Impressions', f:'int'},
   {k:'ad_clicks',         t:'Ad Clicks',      f:'int'},
   {k:'ad_spend',          t:'Ad Spend',       f:'money'},
-  {k:'ad_sales',          t:'Ad Sales',       f:'money'},
+  {k:'ad_sales',          t:'eBay Attributed Ad Sales', f:'money'},
   {k:'roas',              t:'ROAS / ACoS',    f:'roas'},
   {k:'segment',           t:'Segment',        f:'seg'},
 ];
 // Display labels only — segmentation logic and stored values are unchanged.
-const SEG_LABEL = {A:'A · Winner', B:'B · Recovery', C:'C · Lost Ads', D:'D · Lost Perf', Other:'Other'};
+// The four business segments. Classification happens in build/build.mjs, where D is the
+// fallback, so every assigned product carries one of these. This list is the EXPECTED set: it is
+// used to order the cards and to detect a stray segment — it never filters a row out. Nothing is
+// hidden from this dashboard.
+const PUBLISHED_SEGS = ['A', 'B', 'C', 'D'];
+const SEG_LABEL = {A:'A · Winner', B:'B · Recovery', C:'C · Lost Ads', D:'D · Lost Performer'};
 const SEG_TITLE = {A:'A — YoY Winner: TY Sales > LY Sales',
                    B:'B — YoY Recovery: TY < LY but latest 7 TY days > preceding 7',
                    C:'C — Lost Ad Sales: LY Ad Sales > 0 and TY Ad Sales = 0',
-                   D:'D — Lost Performer: LY Sales > 0 and TY Sales = 0',
-                   Other:'Other — no A/B/C/D rule matched'};
+                   D:'D — Lost Performer: LY Sales > 0 and TY Sales = 0 — also the fallback for any product the A/B/C rules do not match'};
 const SYM = {GBP:'£', EUR:'€', USD:'$'};
 const NA  = '<span class="na">N/A</span>';
 const nf  = new Intl.NumberFormat('en-GB');
 const mf  = new Intl.NumberFormat('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2});
 
-let DATA = [], META = null, view = [], shown = 0;
+// DATA is the PUBLISHED population (A/B/C/D only) — every filter, card, count, sort and the
+// CSV export all read it, so nothing downstream needs to know about the exclusion.
+// SOURCE is the untouched validated dataset, kept for the audit line and the QA hook. The
+// dataset file itself is never modified: this is a display/publication scope, not a data change.
+let DATA = [], SOURCE = [], EXCLUDED = 0, META = null, view = [], shown = 0;
 const PAGE = 400;
 let sortKey = 'ty_sales', sortDir = -1;
 
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
+// Currency <-> selling region, derived from the rows themselves so the label can never
+// drift from the data. GBP is the UK marketplace, EUR the German one — the business reads
+// these as countries, not currency codes, so both are shown. The option VALUE stays the
+// bare currency code, so filtering logic is unchanged.
+const REGION_OF = {};
+const regionLabel = cur => REGION_OF[cur] ? `${cur} — ${REGION_OF[cur]}` : cur;   // dropdown
+const regionParen = cur => REGION_OF[cur] ? `${cur} (${REGION_OF[cur]})` : cur;   // summary card
+function buildRegions() {
+  const m = {};
+  for (const r of DATA) (m[r.currency] ??= new Set()).add(r.marketplace === 'GB' ? 'UK' : r.marketplace);
+  for (const [c, s] of Object.entries(m)) REGION_OF[c] = [...s].sort().join('/');
+}
+
+// Thumbnails are remote eBay URLs: lazy-loaded, aspect preserved, and anything missing or
+// broken becomes a neutral "No image" chip rather than a broken-image icon.
+function thumb(url){
+  if (!url) return '<span class="noimg">No image</span>';
+  return '<img class="thumb" loading="lazy" src="' + esc(url) + '" alt="" ' +
+         'onerror="this.replaceWith(Object.assign(document.createElement(&quot;span&quot;),' +
+         '{className:&quot;noimg&quot;,textContent:&quot;No image&quot;}))">';
+}
+
 function cell(r, c){
   const v = r[c.k];
   switch(c.f){
+    case 'img':     return `<td class="imgcell">${thumb(v)}</td>`;
+    // A null here means "not known yet", which must never read as zero.
+    case 'pending': return `<td class="num">${v === null ? '<span class="pend">Pending</span>' : SYM[r.currency] + mf.format(v)}</td>`;
+    case 'na':      return `<td class="num">${v === null ? NA : (c.k === 'ty_ad_pct' ? v.toFixed(1) + '%' : SYM[r.currency] + mf.format(v))}</td>`;
+    case 'pct1':    return `<td class="num">${v === null ? NA : v.toFixed(1) + '%'}</td>`;
     case 'id':    return `<td class="id">${esc(v)}</td>`;
     case 'sku':   return `<td class="sku" title="${esc(r.title)}">${esc(v)}</td>`;
     case 'int':   return `<td class="num">${v ? nf.format(v) : '<span class="na">0</span>'}</td>`;
@@ -194,15 +275,63 @@ function cell(r, c){
   }
 }
 
+// Summary and currency cards describe the CURRENT filtered set, not the whole dataset —
+// so Account = Ledsone + Category = Lampshades reads as that slice, not the full file.
+function cards(rows){
+  const seg = rows.reduce((a, r) => (a[r.segment] = (a[r.segment] || 0) + 1, a), {});
+  // Total is summed from the segment buckets rather than reusing rows.length, so if the
+  // two ever disagree the card makes it visible instead of hiding it.
+  const total = PUBLISHED_SEGS.reduce((n, k) => n + (seg[k] || 0), 0);
+  document.getElementById('cards').innerHTML = [
+    ['Listings shown', rows.length], ['A — YoY Winners', seg.A || 0],
+    ['B — YoY Recovery', seg.B || 0], ['C — Lost Ad Sales', seg.C || 0],
+    ['D — Lost Performers', seg.D || 0],
+    ['Total', total],
+  ].map(([k, v]) => `<div class="card"><div class="k">${k}</div><div class="v">${nf.format(v)}</div></div>`).join('');
+
+  // Per currency, never blended — the same rule as the dataset itself.
+  const cur = {};
+  for (const r of rows) {
+    const c = (cur[r.currency] ||= { currency: r.currency, rows: 0, ly: 0, ty: 0 });
+    c.rows++; c.ly += r.ly_sales; c.ty += r.ty_sales;
+  }
+  document.getElementById('curcards').innerHTML = Object.values(cur)
+    .sort((a, b) => b.ty - a.ty)
+    .map(c => `<div class="card"><div class="k">${esc(regionParen(c.currency))} — ${nf.format(c.rows)} rows</div>` +
+      `<div class="v">LY ${SYM[c.currency]}${mf.format(c.ly)} &rarr; TY ${SYM[c.currency]}${mf.format(c.ty)}</div></div>`)
+    .join('') || '<div class="card"><div class="k">No rows</div><div class="v">—</div></div>';
+}
+
+// Category options cascade from Account: only categories present in the account's own
+// rows are offered. Called before filtering so the dropdown can never offer a category
+// that would return nothing. A category no longer available is reset to "All categories".
+// Category is a BUSINESS filter, not a summary of the current rows: every account offers
+// the same two options. Hiding "Wall Plug" because an account happens to have none reads
+// as "this account can't have wall plugs", which is wrong — it has none *assigned yet*.
+// An empty result is answered by the empty state below, not by removing the choice.
+const BUSINESS_CATEGORIES = ['Lamp Shade', 'Wall Plug'];
+
+function syncCategories(){
+  const keep = fCategory.value;
+  fCategory.innerHTML = '<option value="">All categories</option>' +
+    BUSINESS_CATEGORIES.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
+  fCategory.value = BUSINESS_CATEGORIES.includes(keep) ? keep : '';
+}
+
 function apply(){
-  const acc = fAccount.value, seg = fSegment.value, cur = fCurrency.value;
+  const acc = fAccount.value, cat = fCategory.value, seg = fSegment.value, cur = fCurrency.value;
   const q = document.getElementById('q').value.trim().toLowerCase();
   view = DATA.filter(r =>
     (!acc || r.account === acc) &&
+    (!cat || r.category === cat) &&
     (!seg || r.segment === seg) &&
     (!cur || r.currency === cur) &&
     (!q   || r.ebay_id.toLowerCase().includes(q) || r.sku.toLowerCase().includes(q)
+          || (r.sku_id || '').toLowerCase().includes(q)
+          || (r.category || '').toLowerCase().includes(q)
           || (r.title || '').toLowerCase().includes(q)));
+
+  cards(view);
 
   view.sort((a, b) => {
     let x = a[sortKey], y = b[sortKey];
@@ -218,6 +347,19 @@ function apply(){
 }
 
 function render(){
+  if (view.length === 0) {
+    const acc = fAccount.value, cat = fCategory.value;
+    const what = cat ? `${esc(cat)} products` : 'products';
+    const where = acc ? ` for ${esc(acc)}` : '';
+    document.getElementById('body').innerHTML =
+      `<tr class="empty"><td colspan="${COLS.length}">No ${what} found${where}.` +
+      `<span class="hint">Adjust the Account or Category filter above.</span></td></tr>`;
+    document.getElementById('count').textContent = `Showing 0 of 0 listings (filtered from ${nf.format(DATA.length)})`;
+    document.getElementById('more').hidden = true;
+    const dl0 = document.getElementById('download');
+    dl0.textContent = 'Download CSV (0)'; dl0.disabled = true;
+    return;
+  }
   const slice = view.slice(shown, shown + PAGE);
   document.getElementById('body').insertAdjacentHTML('beforeend',
     slice.map(r => '<tr>' + COLS.map(c => cell(r, c)).join('') + '</tr>').join(''));
@@ -246,39 +388,72 @@ function head(){
 }
 
 fetch('data/september-comparison.json').then(r => r.json()).then(d => {
-  DATA = d.rows; META = d.meta;
+  SOURCE = d.rows; META = d.meta;
+  // EVERY assigned product is shown. build/build.mjs falls back to D for anything the A/B/C
+  // rules do not match, so there is nothing to exclude and no row is ever dropped here.
+  DATA = SOURCE;
+  // Belt and braces: if a segment outside A/B/C/D ever appeared, the row still displays and
+  // the count below makes it visible, rather than the row quietly vanishing.
+  EXCLUDED = SOURCE.filter(r => !PUBLISHED_SEGS.includes(r.segment)).length;
 
-  document.getElementById('sub').textContent =
-    `LY ${META.ly_window}  vs  TY ${META.ty_window}  ·  ${nf.format(META.row_count)} listings  ·  ` +
-    `generated ${new Date(META.generated_at).toLocaleString('en-GB')}`;
+  // One concise line — everything technical now lives in the Data Notes drawer.
+  document.getElementById('sub').innerHTML =
+    `${esc(META.ly_window.split(' to ')[0].slice(0,4))} vs ${esc(META.ty_window.split(' to ')[0].slice(0,4))} September` +
+    ` &middot; <b>${nf.format(DATA.length)}</b> products` +
+    ` &middot; <b>${META.accounts.length}</b> accounts` +
+    ` &middot; <b>${META.categories.length}</b> categories` +
+    ` &middot; generated ${new Date(META.generated_at).toLocaleString('en-GB')}`
+    + (EXCLUDED ? ` &middot; <b style="color:#b42318">WARNING: ${nf.format(EXCLUDED)} rows carry an ` +
+        `unexpected segment</b>` : '');
 
-  const m = META.source_max_dates;
-  document.getElementById('notice').innerHTML =
-    `<b>TY September data is partial / current available data.</b> ` +
-    `Sales &amp; ads available through <b>${m.sales}</b>; traffic through <b>${m.traffic}</b>. ` +
-    `TY figures and YoY % are understated against a full LY September — partly for calendar reasons, not performance.`;
+  // The comparison period is fixed to what the embedded snapshot actually contains.
+  // Showing editable date inputs here would be a lie: the rows are pre-aggregated LY/TY
+  // totals with no daily series, so changing a date could not change a single number.
+  const dmy = s => { const [y,mo,d] = s.split('-'); return `${d}/${mo}/${y}`; };
+  const lyW = META.ly_window.split(' to ');
+  const tyW = META.ty_window.replace(' (PARTIAL)','').split(' to ');
+  document.getElementById('period').innerHTML =
+    `<span class="lab">Comparison period</span>` +
+    `<span class="pill">LY <b>${dmy(lyW[0])} &rarr; ${dmy(lyW[1])}</b></span>` +
+    `<span class="pill">TY <b>${dmy(tyW[0])} &rarr; ${dmy(tyW[1])}</b></span>` +
+    `<span class="why">Fixed to this snapshot &mdash; see Data Notes</span>`;
 
-  const s = META.segments;
-  document.getElementById('cards').innerHTML = [
-    ['Total Listings', META.row_count], ['A — YoY Winners', s.A || 0],
-    ['B — YoY Recovery', s.B || 0], ['C — Lost Ad Sales', s.C || 0],
-    ['D — Lost Performers', s.D || 0], ['Other', s.Other || 0],
-  ].map(([k, v]) => `<div class="card"><div class="k">${k}</div><div class="v">${nf.format(v)}</div></div>`).join('');
-
-  document.getElementById('curcards').innerHTML = META.currencies.map(c =>
-    `<div class="card"><div class="k">${c.currency} — ${nf.format(c.rows)} rows</div>` +
-    `<div class="v">LY ${SYM[c.currency]}${mf.format(c.ly_sales)} &rarr; TY ${SYM[c.currency]}${mf.format(c.ty_sales)}</div></div>`).join('');
+  const shortD = s => { const [y,mo,d] = s.split('-');
+    return d + ' ' + ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+mo-1] + ' ' + y; };
+  // The standing partial-TY banner was removed at the business's request (2026-09-30). The fact
+  // itself is NOT lost: the Comparison period pill shows the actual TY end date, and Data Notes
+  // states the per-source coverage in full (orders, advertising and traffic each end on their own
+  // day). Do not delete those — they are the remaining disclosure that TY is a partial month.
 
   fAccount.innerHTML += META.accounts.map(a => `<option>${esc(a)}</option>`).join('');
-  fCurrency.innerHTML += META.currencies.map(c => `<option>${c.currency}</option>`).join('');
+  buildRegions();
+  fCurrency.innerHTML += META.currencies
+    .map(c => `<option value="${esc(c.currency)}">${esc(regionLabel(c.currency))}</option>`).join('');
+  syncCategories();
 
   document.getElementById('foot').innerHTML = `
+    <b>Product scope.</b> The eBay listings assigned to PH user <b>utharsika</b> under her two PH categories &mdash; <b>Lampshade</b> and <b>Wall plug</b> (<i>staff.ph_categories</i> &rarr; <i>staff.ph_category_products</i>, eBay source). Bulbs, transformers, LED drivers and power supplies belong to other PH users and are out of scope. An assigned product with no September sales is still listed, showing 0.00, so the full portfolio is visible &mdash; not only what sold.
+    <b>Accounts.</b> Sunsone, Ledsone, Electricalsone, Huttenlampen, ledsone uk de and ledsone de. <i>ledsone uk de</i> is the LEDSone UK account's German-marketplace activity, reported separately from <i>Ledsone</i>; <i>ledsone de</i> is the separate LEDSone DE account.
+    <b>Partial TY.</b> TY figures and YoY % are understated against a full LY September &mdash; partly a calendar effect, not performance.
+    <b>Comparison period.</b> Fixed to LY September 2025 against the available part of TY September 2026. The embedded rows are pre-aggregated period totals with no daily breakdown, so the dashboard deliberately offers no date picker &mdash; a control that changed dates without changing the numbers would mislead. A different period requires a fresh extract.
+    <b>Sales split.</b> <b>LY Ad-Generated Sales</b> uses order-level Promoted Standard attribution (<i>ebay_order_expenses</i> <i>AD_FEE</i>) matched to the purchased SKU by order and item — the fee proves attribution; the value is that order line's realised revenue. <b>LY Sales = LY Ad-Generated + LY Non-Ad-Attributed</b> on every row.
+    <b>TY order-level eBay billing attribution is currently incomplete</b> (available only through ${shortD(META.ad_fee_available_through)}), so TY Ad-Generated and Non-Ad-Attributed are shown as <b>Pending / N/A</b> rather than estimated — a blank here means unknown, not zero.
+    <b>Promoted Advanced</b> conversions carry no order reference and cannot be linked to a purchased SKU, so any Advanced-driven revenue sits inside Non-Ad-Attributed.
+    <b>eBay Attributed Ad Sales</b> is a separate click-attribution performance metric (credited to the clicked listing) and is not part of the sales split; <b>Segment C</b> and ROAS/ACoS continue to use it, because TY order-level billing is incomplete.
+    <b>Metric sources (every field reconciled against raw LEDsone records 2026-09-30).</b>
+    <b>Orders</b> is the count of distinct customer orders — <i>COUNT(DISTINCT order_management.orders.order_id)</i> for that listing, excluding Cancelled and Refunded, on the same order snapshot as Sales — both are derived from one query against the live LEDSone database, so they can never disagree about which orders are real. It is <b>not</b> units: it is neither eBay's <i>quantity_sold</i> nor our OMS <i>item_quantity</i>, and it is not a count of order lines. One order buying three units counts once; one order carrying the same item on three lines also counts once.
+    <b>Conversion %</b> = eBay's reported units sold (<i>ebay_traffic_data.quantity_sold</i>) &divide; Views &times; 100 — algebraically identical to eBay's reported STR, so it is deliberately <b>not</b> recomputed from distinct Orders, which would produce a rate eBay never reports. Orders and Conversion therefore have different numerators by design.
+    <b>Views</b> = <i>ebay_views</i> only (external views excluded). Traffic coverage: LY 28 of 30 September days, TY 28 days (through ${shortD(META.source_max_dates.traffic)}) — TY and LY views are both understated by the source, not by this report. Each TY source ends on its own day: orders ${shortD(META.source_max_dates.sales)}, advertising ${shortD(META.source_max_dates.ads)}, traffic ${shortD(META.source_max_dates.traffic)}.
+    <b>LY/TY Avg Price</b> is Average Selling Price = status-filtered Sales &divide; units sold; no historical eBay listing price exists in the database, so this is a labelled fallback, not a quoted price.
+    <b>Sales</b> excludes Cancelled and Refunded orders.
+    <b>SKU Image</b> is the eBay listing's own main image; thumbnails load from eBay, so the dashboard's data and filters work offline but images need internet.
     <b>Notes (V1).</b>
     <b>Price</b> is realised Average Selling Price (Sales &divide; Units) for both LY and TY — no historical list-price source exists; at listing level this averages across variations.
-    <b>Orders</b> are units sold. <b>Conversion</b> = Orders &divide; Views (organic; eBay views only, PPC conversion not mixed in).
+    <b>Orders</b> are distinct customer orders, not units and not order lines — so Orders reads lower than the units-based figure it replaced (across all 186 rows: 185 LY / 133 TY actual orders, against 235 / 204 eBay units sold and 259 / 209 OMS units). <b>Conversion</b> = eBay units sold &divide; Views (organic; eBay views only, PPC conversion not mixed in), which is eBay's STR and is intentionally left on the units numerator — so Orders and Conversion have different numerators by design.
     <b>Ad Spend</b> comes from eBay Promoted Listings reported ad fees (<i>${esc(META.ad_spend_source)}</i>) — the billing record holds only ~3 days of TY September, so it is not used; one source only, no double-count.
     <b>Ad Impressions, Clicks, Spend and Ad Sales</b> are TY figures. Ad sales under-attribute Promoted Advanced by ~25% (known limit of the only per-listing source).
-    <b>Segment precedence D &rarr; C &rarr; B &rarr; A &rarr; Other is a V1 implementation rule pending business confirmation</b>; D requires TY Sales exactly 0; B requires the latest 7 TY days to exceed the preceding 7.
+    <b>Segment precedence D &rarr; C &rarr; B &rarr; A is a V1 implementation rule pending business confirmation</b>; D requires TY Sales exactly 0; B requires the latest 7 TY days to exceed the preceding 7.
+    <b>Every assigned product is shown &mdash; all ${nf.format(DATA.length)} of them.</b> The A, B and C rules are applied exactly as defined; <b>D is also the fallback</b>, so any product those rules do not match is classified <b>D &mdash; Lost Performer</b> rather than being hidden. ${nf.format(SOURCE.filter(r => r.ly_sales === 0 && r.ty_sales === 0).length)} of the D rows sold nothing in <i>either</i> September, so read D as "not performing" rather than strictly "lost what it had": with no sales in either year there is no year-on-year movement to measure, and A/B/C all require sales or LY ad sales. A further handful declined year on year while still selling and still making ad sales, which no rule names either. Classification is a labelling rule only &mdash; <b>no Sales, Orders, Views, Conversion, Price or advertising figure is affected by it</b>.
     <b>Currency</b> — GBP, EUR and USD are never summed together; each row keeps its marketplace currency.
     Listing Analysis and Demand Analysis are follow-up diagnostics: no verified LY-vs-TY source.`;
 
@@ -294,24 +469,33 @@ fetch('data/september-comparison.json').then(r => r.json()).then(d => {
 // required 21 keep their exact positions.
 const CSV_COLS = [
   ['eBay ID',          r => r.ebay_id],
-  ['SKU',              r => r.sku],
-  ['LY Sales',         r => money(r.ly_sales)],
-  ['TY Sales',         r => money(r.ty_sales)],
+  ['SKU Image URL',    r => r.image_url],
+  ['SKU ID',           r => r.sku_id],
+  ['Category',         r => r.category],
+  ['SKU / Product',    r => r.sku],
+  ['LY Sales',                    r => money(r.ly_sales)],
+  ['LY Ad-Generated Sales',       r => money(r.ly_ad_generated)],
+  ['LY Non-Ad-Attributed Sales',  r => money(r.ly_non_ad)],
+  ['LY Ad Sales %',               r => r.ly_ad_pct === null ? 'N/A' : r.ly_ad_pct.toFixed(1)],
+  ['TY Sales',                    r => money(r.ty_sales)],
+  ['TY Ad-Generated Sales',       r => r.ty_ad_generated === null ? 'Pending' : money(r.ty_ad_generated)],
+  ['TY Non-Ad-Attributed Sales',  r => r.ty_non_ad === null ? 'N/A' : money(r.ty_non_ad)],
+  ['TY Ad Sales %',               r => r.ty_ad_pct === null ? 'N/A' : r.ty_ad_pct.toFixed(1)],
   ['YoY %',            r => r.yoy_pct === null ? r.yoy_label : r.yoy_pct.toFixed(1)],
-  ['LY Ad Sales',      r => money(r.ly_ad_sales)],
-  ['TY Ad Sales',      r => money(r.ty_ad_sales)],
+  ['LY eBay Attributed Ad Sales', r => money(r.ly_ad_sales)],
+  ['TY eBay Attributed Ad Sales', r => money(r.ty_ad_sales)],
   ['LY Views',         r => r.ly_views],
   ['TY Views',         r => r.ty_views],
   ['LY Orders',        r => r.ly_orders],
   ['TY Orders',        r => r.ty_orders],
   ['LY Conversion %',  r => r.ly_conversion_pct === null ? 'N/A' : r.ly_conversion_pct.toFixed(2)],
   ['TY Conversion %',  r => r.ty_conversion_pct === null ? 'N/A' : r.ty_conversion_pct.toFixed(2)],
-  ['LY Price',         r => money(r.ly_price)],
-  ['TY Price',         r => money(r.ty_price)],
+  ['LY Avg Price',     r => money(r.ly_price)],
+  ['TY Avg Price',     r => money(r.ty_price)],
   ['Ad Impressions',   r => r.ad_impressions],
   ['Ad Clicks',        r => r.ad_clicks],
   ['Ad Spend',         r => money(r.ad_spend)],
-  ['Ad Sales',         r => money(r.ad_sales)],
+  ['eBay Attributed Ad Sales', r => money(r.ad_sales)],
   ['ROAS / ACoS',      r => (r.roas === null && r.acos === null) ? 'N/A'
                           : `${r.roas === null ? 'N/A' : r.roas.toFixed(2)} / ${r.acos === null ? 'N/A' : r.acos.toFixed(2) + '%'}`],
   ['Segment',          r => r.segment],
@@ -337,8 +521,9 @@ function buildCsv(rows){
 
 function csvFilename(){
   const bits = ['September-Comparison-2026'];
-  const acc = fAccount.value, seg = fSegment.value, cur = fCurrency.value;
+  const acc = fAccount.value, cat = fCategory.value, seg = fSegment.value, cur = fCurrency.value;
   if (acc) bits.push(acc.replace(/[^A-Za-z0-9_-]+/g, '-').slice(0, 24));
+  if (cat) bits.push(cat.replace(/[^A-Za-z0-9_-]+/g, '-').slice(0, 28));
   if (seg) bits.push('Segment-' + seg);
   if (cur) bits.push(cur);
   if (document.getElementById('q').value.trim()) bits.push('filtered');
@@ -359,14 +544,31 @@ function downloadCsv(){
 const wrap = document.querySelector('.wrap');
 wrap.addEventListener('scroll', () => wrap.classList.toggle('scrolled', wrap.scrollLeft > 0), {passive:true});
 
-['fAccount','fSegment','fCurrency'].forEach(id => document.getElementById(id).onchange = apply);
+// Account drives the Category list, so it refreshes the options before filtering.
+fAccount.onchange = () => { syncCategories(); apply(); };
+['fCategory','fSegment','fCurrency'].forEach(id => document.getElementById(id).onchange = apply);
 document.getElementById('q').oninput = apply;
 document.getElementById('more').onclick = render;
 document.getElementById('download').onclick = downloadCsv;
 document.getElementById('reset').onclick = () => {
   fAccount.value = ''; fSegment.value = ''; fCurrency.value = '';
   document.getElementById('q').value = '';
+  syncCategories(); fCategory.value = '';
   sortKey = 'ty_sales'; sortDir = -1; head(); apply();
+};
+
+// QA hook. Top-level `let`/`const` live in the global lexical scope, which an automated
+// browser driver cannot reach, so the current state is published explicitly. Getters, so
+// this only ever reads what the page already computed — it drives nothing.
+window.__dashboard = {
+  get data()  { return DATA; },
+  get source() { return SOURCE; },
+  get excluded() { return EXCLUDED; },
+  get publishedSegments() { return PUBLISHED_SEGS.slice(); },
+  get meta()  { return META; },
+  get view()  { return view; },
+  get categoryOptions() { return [...fCategory.options].map(o => o.value); },
+  buildCsv,
 };
 </script>
 </body>

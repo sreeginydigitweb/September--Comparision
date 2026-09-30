@@ -1,8 +1,36 @@
 # Task Complete — September Comparison V1
 
-Closed 2026-09-28. Final status: **COMPLETE**.
+Closed 2026-09-28. Reopened and corrected **2026-09-29**.
+
+> ## SCOPE CORRECTION — 2026-09-29
+>
+> The senior rejected the V1 population (*"athila ellarda ID m varuthu"* — all the IDs are
+> turning up) and restated the requirement as **the sales view report for September 2025
+> and September 2026 only**. The population is now built from September sales alone —
+> `LY Sales > 0 OR TY Sales > 0` — with traffic, ads and listing identity as enrichment
+> that can never add a row.
+>
+> **17,845 rows → 3,134.** 14,739 zero-sales rows removed; 0 remain.
+> Segments recalculated: **A 1,349 · B 80 · C 77 · D 1,296 · Other 332**.
+> LY sales totals are unchanged, which proves the removed rows carried no September revenue.
+>
+> Every figure below marked 17,845 or carrying a V1 segment count is **obsolete**. The
+> current numbers are in `validation/scope-correction-2026-09-29.md` and
+> `evidence/extract-2026-09-29/counts.md`. The standalone deliverable is now **1.6 MB**.
+>
+> **PH Priors row 1947 updated 2026-09-29** — `html_content` only, 1,645,091 chars, md5
+> `18f611aa29be9d90f662265f6802e63d`, verified against the source file from a second
+> connection. No other column changed, no duplicate row created.
 
 ## What was delivered
+
+> **Final portable deliverable: `September-Comparison-Dashboard.html`** (8.6 MB) — one
+> self-contained file. No runtime, no server, no database, no internet, no sibling files.
+> Double-click to open. Verified offline from file:// in an isolated folder with 0 network
+> requests and 0 console errors; all 16 standalone tests pass. The localhost version
+> (`index.html` + `data/` + `build/`) is preserved and still works. Rebuild with
+> `node build/standalone.mjs`. See `validation/final-validation.md` §0.
+
 
 > **CSV export added 2026-09-28.** `Download CSV` sits beside Clear filters with a live
 > count. It exports the **full current filtered + sorted set** (all 17,845 rows unfiltered,

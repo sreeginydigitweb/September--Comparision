@@ -1,0 +1,95 @@
+{
+  "captured_at": "2026-09-29",
+  "source": "FRESH ledsone (dbhub_readonly, SELECT only) — direct September aggregation over the assigned population, grouped independently of build/build.mjs. Supersedes evidence/extract-2026-09-29/sales-reconciliation.json, which came from the stale order_management_copy mirror.",
+  "population_rule": "utharsika's PH eBay product assignment (staff.ph_categories user_id=109 -> staff.ph_category_products source_id=2), restricted to the six approved business account groups. September sales are NOT required — assigned products with no September sales remain visible at LY 0 / TY 0.",
+  "fresh_vs_mirror": {
+    "orders": { "mirror": "2026-09-23", "fresh": "2026-09-29", "gain_days": 6 },
+    "traffic": { "mirror": "2026-09-22", "fresh": "2026-09-27", "gain_days": 5 },
+    "ppc": { "mirror": "2026-09-16", "fresh": "2026-09-29", "gain_days": 13 },
+    "ad_fee": { "mirror": "2026-09-02", "fresh": "2026-09-03", "gain_days": 1, "still_incomplete": true }
+  },
+  "account_scope": {
+    "sub_sources": [1, 4, 22, 27, 28],
+    "groups": {
+      "Sunsone": "sub_source 4 (so_926407)",
+      "Ledsone": "sub_source 1 (led_sone), listing site UK",
+      "Electricalsone": "sub_source 22 (electricalsone)",
+      "Huttenlampen": "sub_source 28 (huettenlampen)",
+      "ledsone uk de": "sub_source 1 (led_sone), listing site Germany",
+      "ledsone de": "sub_source 27 (ledsonede)"
+    }
+  },
+  "date_scope_proof": {
+    "sales_source_rows": 337,
+    "distinct_year_months": 2,
+    "rows_outside_september": 0,
+    "rows_outside_2025_2026": 0,
+    "ly_min": "2025-09-01",
+    "ly_max": "2025-09-30",
+    "ty_min": "2026-09-01",
+    "ty_max": "2026-09-29"
+  },
+  "population": { "qualifying_keys": 186, "with_image": 184 },
+  "by_currency": [
+    {
+      "currency": "EUR",
+      "rows": 29,
+      "ly_sales": 320.91,
+      "ty_sales": 43.17,
+      "ly_orders": 22,
+      "ty_orders": 3,
+      "ly_views": 692,
+      "ty_views": 239,
+      "ly_ad_sales": 395.28,
+      "ty_ad_sales": 20.08,
+      "ad_spend": 7.26,
+      "impressions": 61849,
+      "clicks": 62
+    },
+    {
+      "currency": "GBP",
+      "rows": 157,
+      "ly_sales": 2861.24,
+      "ty_sales": 2464.39,
+      "ly_orders": 213,
+      "ty_orders": 194,
+      "ly_views": 7795,
+      "ty_views": 5945,
+      "ly_ad_sales": 3037.11,
+      "ty_ad_sales": 1720.20,
+      "ad_spend": 281.02,
+      "impressions": 1494200,
+      "clicks": 1979
+    }
+  ],
+  "by_account": [
+    { "account": "Electricalsone", "rows": 21, "ly_sales": 39.07, "ty_sales": 379.49, "ly_orders": 3, "ty_orders": 31 },
+    { "account": "Huttenlampen", "rows": 9, "ly_sales": 66.08, "ty_sales": 30.68, "ly_orders": 5, "ty_orders": 2 },
+    { "account": "Ledsone", "rows": 92, "ly_sales": 2777.01, "ty_sales": 1859.77, "ly_orders": 209, "ty_orders": 147 },
+    { "account": "Sunsone", "rows": 44, "ly_sales": 45.16, "ty_sales": 225.13, "ly_orders": 1, "ty_orders": 16 },
+    { "account": "ledsone de", "rows": 6, "ly_sales": 90.60, "ty_sales": 0.00, "ly_orders": 5, "ty_orders": 0 },
+    { "account": "ledsone uk de", "rows": 14, "ly_sales": 164.23, "ty_sales": 12.49, "ly_orders": 12, "ty_orders": 1 }
+  ],
+  "by_category": [
+    { "category": "Lamp Shade", "rows": 173, "items": 173, "ly_sales": 2989.83, "ty_sales": 2416.60 },
+    { "category": "Wall Plug", "rows": 13, "items": 13, "ly_sales": 192.32, "ty_sales": 90.96 }
+  ],
+  "note": "Fresh LEDsone rebuild 2026-09-29. LY is unchanged from the mirror on every aggregate (ly_sales 3182.15, ly_orders 235) — proof the rebuilt query is faithful. TY rose by the days the mirror was missing: sales +29.78 (all Ledsone/GBP/Lamp Shade), ty_ad_sales +33.20, ad_spend +3.20, impressions +7586, clicks +14.",
+  "metric_definitions": {
+    "sales": "order_management.orders x order_item_info, SUM(item_quantity*item_price), eBay accounts, status NOT IN (Cancelled,Refunded)",
+    "orders": "business_reports.ebay_traffic_data.quantity_sold — eBay-reported units sold (NOT OMS units, NOT distinct order count)",
+    "views": "business_reports.ebay_traffic_data.ebay_views (external_views deliberately excluded)",
+    "conversion": "quantity_sold / ebay_views * 100 — algebraically identical to eBay STR",
+    "avg_price": "ASP = status-filtered Sales / OMS units sold (no historical listing price exists in ledsone)",
+    "ly_ad_generated": "ebay_order_expenses AD_FEE (DISTINCT order_id+item_id, order_id<>'0') matched to the purchased order line; the line REVENUE is the value, never the fee",
+    "ty_ad_generated": "Pending — AD_FEE available through 2026-09-03 only (3 of 29 days, 12.8% of TY sales by value)",
+    "ad_sales": "listing_performance.sale_amount_listing_currency — eBay ATTRIBUTED ad sales, never subtracted from Total Sales",
+    "ad_spend": "listing_performance.ad_fees_listing_currency",
+    "ad_impressions": "listing_performance.impressions (promoted-listing, NOT traffic-report impressions)",
+    "ad_clicks": "listing_performance.clicks",
+    "roas": "SUM(ad_sales)/SUM(ad_spend) — never an average of row-level rates",
+    "acos": "SUM(ad_spend)/SUM(ad_sales)*100",
+    "sku_image": "listings.ebay_listings.main_image_url, one per account+item_id, http rewritten to https",
+    "traffic_coverage": "LY 28 of 30 September 2025 days; TY 27 available September 2026 days"
+  }
+}

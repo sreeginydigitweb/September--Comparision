@@ -9,6 +9,42 @@ business-owner rules, and are marked as such.
 
 ---
 
+## 0. Population — LOCKED (added 2026-09-29, senior correction)
+
+**The dashboard population is SALES-DRIVEN.**
+
+A row exists only where there are September product sales:
+
+```
+COALESCE(ly_sales, 0) > 0  OR  COALESCE(ty_sales, 0) > 0
+```
+
+with LY = 2025-09-01 → 2025-09-30 and TY = 2026-09-01 → the currently available September
+2026 data. **September only** — no other month, no other year, no rolling or trailing
+window, no YTD.
+
+Traffic, advertising and listing identity are `LEFT JOIN`ed onto that population. They
+**enrich** a sales-qualified row and must **never** introduce one. The existence of an eBay
+id in `listings.ebay_listings`, `ebay_traffic_data` or `listing_performance` is not
+sufficient for it to appear.
+
+This supersedes `build-plan-v1.md` §F, which specified a `FULL OUTER` merge so that "a
+listing with ads but no sales, or views but no ads, still appears". That produced 17,845
+rows of which 14,711 had no September sales in either year, and the senior rejected it:
+*"athila ellarda ID m varuthu"* — all the IDs are turning up. The corrected population is
+**3,134 rows**.
+
+The rule is enforced in three places: `sql/f-combined-sales-driven.sql` builds from sales
+only, `build/build.mjs` throws on any extract containing a zero-sales row, and
+`build/validate.mjs` gates 15/16/19 fail the build. Segment counts are **recalculated**
+from the corrected population — the V1 counts (A 1,318 · B 93 · C 77 · D 1,305 ·
+Other 15,052) are obsolete and are no longer asserted anywhere.
+
+Everything below this section is unaffected: grain, formulas, currency separation and the
+Ad Spend source decision all stand as written.
+
+---
+
 ## 1. Row grain — LOCKED
 
 **Grain: `Account (sub_source) + eBay item_id`.**

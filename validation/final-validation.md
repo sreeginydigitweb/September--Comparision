@@ -2,6 +2,45 @@
 
 Result: **PASS**. Re-confirmed after the UI polish pass (§0).
 
+## 0. Standalone HTML conversion — packaging only, validated offline
+
+Deliverable: **`September-Comparison-Dashboard.html`** (8,982,838 bytes / 8.6 MB), built by
+`build/standalone.mjs`. Packaging only — the fetch call is swapped for the embedded
+snapshot and nothing else changes. The script refuses to build unless the dataset is
+exactly 17,845 rows with segments A 1,318 / B 93 / C 77 / D 1,305 / Other 15,052.
+
+Tested from `file://` in an **isolated temp folder containing only that one file** — no
+`data/`, no siblings, no server.
+
+| Test | Result |
+|---|---|
+| T1 Opens via file:// | PASS — `location.protocol` = `file:` |
+| T2 No external requests | PASS — `performance.getEntriesByType(resource)` = **0** |
+| T3 Dataset 17,845 rows | PASS |
+| T4 Segments A 1,318 / B 93 / C 77 / D 1,305 / Other 15,052 | PASS |
+| T5 Account filter | PASS — `bestbringer` 98, export 98 |
+| T6 Segment filter | PASS — D 1,305 |
+| T7 Currency filter | PASS — EUR 5,277, export 5,277 |
+| T8 Search | PASS — `vintage` 1,635, export 1,635 |
+| T9 Sorting | PASS — LY Views desc 3313, 3056, 2613, 2224, 1917 |
+| T10 Clear filters | PASS — back to 17,845 |
+| T11 Show more | PASS — 400 to 800 |
+| T12 CSV full export | PASS — **17,845** rows, BOM present |
+| T13 CSV filtered export | PASS — D 1,305, EUR 5,277, account 98, search 1,635 |
+| T14 21 columns correct order | PASS |
+| T15 Console errors | PASS — **0 errors, 0 failed requests** |
+| T16 No NaN/Infinity/undefined/[object Object] | PASS — 0 rows with a wrong field count |
+
+Also confirmed present offline: summary cards, per-currency KPI cards, partial-TY notice,
+sticky header, frozen eBay ID/SKU columns, segment badges, dashboard notes.
+
+Static check of the file: **0** occurrences of `fetch(`, `localhost`,
+`september-comparison.json`, `http://`/`https://`, `<script src=` or
+`<link rel=stylesheet`.
+
+**The localhost version is preserved and still working** — `index.html` unchanged (still
+fetches), server returns 200, `npm run validate` exit 0.
+
 ## 0a. CSV export feature — added and validated
 
 `Download CSV` added beside **Clear filters**, with a live count (`Download CSV (1,305)`)

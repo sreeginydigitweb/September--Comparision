@@ -1,0 +1,110 @@
+{
+  "captured_at": "2026-09-30",
+  "source": "FRESH ledsone @169.58.91.229:5432 (dbhub_readonly, SELECT only). Direct September aggregation over the assigned population, built line-level-first and rolled up through its OWN CTE chain with nothing shared with sql/i-fresh-authoritative.sql. Supersedes evidence/extract-2026-09-29-fresh/sales-reconciliation.json.",
+  "independence_note": "This file exists so gates 17/18 can compare the dataset against a separately-derived aggregation rather than against the extract that produced it. Every total below was computed by a different query shape from pack I and agreed with it to the penny on first run.",
+  "population_rule": "utharsika's PH eBay product assignment (staff.ph_categories user_id=109 -> staff.ph_category_products source_id=2), restricted to the six approved account groups. September sales are NOT required: assigned products with no September sales remain visible at LY 0 / TY 0.",
+  "assignment_check": {
+    "assigned_ids": 186,
+    "ids_md5": "4e23f0b308d204b65a21d37a269229a7",
+    "lamp_shade": 173,
+    "wall_plug": 13,
+    "verified_against": "staff.ph_categories/ph_category_products re-read 2026-09-30; identical to the allowlist captured 2026-09-29, so the scope has not drifted"
+  },
+  "source_max_dates": {
+    "orders_all_ebay": "2026-09-30 03:30:16",
+    "orders_assigned_population": "2026-09-29",
+    "traffic": "2026-09-28",
+    "listing_performance": "2026-09-30",
+    "ad_fee": "2026-09-03"
+  },
+  "date_scope_proof": {
+    "distinct_year_months": 2,
+    "rows_outside_september": 0,
+    "rows_outside_2025_2026": 0,
+    "ly_min": "2025-09-01",
+    "ly_max": "2025-09-30",
+    "ty_min": "2026-09-01",
+    "ty_max": "2026-09-29"
+  },
+  "population": {
+    "rows": 186,
+    "assigned_ids": 186,
+    "lamp_shade": 173,
+    "wall_plug": 13
+  },
+  "by_currency": [
+    {
+      "currency": "EUR",
+      "rows": 29,
+      "ly_sales": 320.91,
+      "ty_sales": 43.17,
+      "ly_orders": 13,
+      "ty_orders": 3,
+      "ly_views": 692,
+      "ty_views": 247,
+      "ly_ad_sales": 395.28,
+      "ty_ad_sales": 20.08,
+      "ad_spend": 7.26,
+      "impressions": 63652,
+      "clicks": 62
+    },
+    {
+      "currency": "GBP",
+      "rows": 157,
+      "ly_sales": 2861.24,
+      "ty_sales": 2492.17,
+      "ly_orders": 172,
+      "ty_orders": 130,
+      "ly_views": 7795,
+      "ty_views": 6157,
+      "ly_ad_sales": 3037.11,
+      "ty_ad_sales": 1762.19,
+      "ad_spend": 288.00,
+      "impressions": 1530790,
+      "clicks": 2032
+    }
+  ],
+  "by_account": [
+    { "account": "Electricalsone", "rows": 21, "ly_sales": 39.07,   "ty_sales": 407.27,  "ly_orders": 2,   "ty_orders": 20 },
+    { "account": "Huttenlampen",   "rows": 9,  "ly_sales": 66.08,   "ty_sales": 30.68,   "ly_orders": 3,   "ty_orders": 2  },
+    { "account": "Ledsone",        "rows": 92, "ly_sales": 2777.01, "ty_sales": 1859.77, "ly_orders": 166, "ty_orders": 98 },
+    { "account": "Sunsone",        "rows": 44, "ly_sales": 45.16,   "ty_sales": 225.13,  "ly_orders": 4,   "ty_orders": 12 },
+    { "account": "ledsone de",     "rows": 6,  "ly_sales": 90.60,   "ty_sales": 0.00,    "ly_orders": 2,   "ty_orders": 0  },
+    { "account": "ledsone uk de",  "rows": 14, "ly_sales": 164.23,  "ty_sales": 12.49,   "ly_orders": 8,   "ty_orders": 1  }
+  ],
+  "by_category": [
+    { "category": "Lamp Shade", "rows": 173, "ly_sales": 2989.83, "ty_sales": 2444.38, "ly_orders": 151, "ty_orders": 121 },
+    { "category": "Wall Plug",  "rows": 13,  "ly_sales": 192.32,  "ty_sales": 90.96,   "ly_orders": 34,  "ty_orders": 12  }
+  ],
+  "grand_totals": {
+    "ly_sales": 3182.15,
+    "ty_sales": 2535.34,
+    "ly_orders": 185,
+    "ty_orders": 133,
+    "ly_views": 8487,
+    "ty_views": 6404,
+    "impressions": 1594442,
+    "clicks": 2094,
+    "ad_spend": 295.26,
+    "ly_ad_generated": 2952.12,
+    "ly_units": 259,
+    "ty_units": 209
+  },
+  "control_164525233292": {
+    "account": "Ledsone",
+    "acct_id": 1,
+    "marketplace": "GB",
+    "ly_order_lines": 66,
+    "ly_orders_distinct": 62,
+    "ly_units": 94,
+    "ly_sales": 1210.05,
+    "cancelled_or_refunded": 0,
+    "note": "Authoritative senior-supplied control, reproduced from raw before any rebuild."
+  },
+  "metric_definitions": {
+    "orders": "COUNT(DISTINCT order_management.orders.order_id) via order_item_info at account+item+marketplace, EBAY source, status NOT IN (Cancelled,Refunded), order_id non-blank. NOT quantity_sold, NOT item_quantity, NOT order-line count.",
+    "sales": "SUM(item_quantity * item_price) over the SAME valid-order population as Orders.",
+    "ly_ad_generated": "AD_FEE (Promoted Standard) matched on (order_id, item_id) to the purchased order line; the VALUE is that line's realised revenue, never the fee. No fee-date window is applied -- eBay bills on its own clock and order 11-13519-57563 (placed 2025-09-01) was billed 2025-08-31.",
+    "orders_total_caveat": "Summing the Orders column across rows is a sum of PER-LISTING order counts, not a count of distinct orders at account or portfolio level: one order containing two different assigned listings contributes 1 to each row. This is inherent to a per-listing report and is why account/category subtotals here are sums of row values."
+  }
+}
